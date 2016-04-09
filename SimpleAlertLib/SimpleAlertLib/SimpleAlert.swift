@@ -35,7 +35,7 @@ public class SimpleAlert: UIView {
     let otherViewRowSpace = CGFloat(0.5)
     
     // working around a shared dependency on other stuff in my own libs
-    var doThisToEveryButton: ((UIButton)->())?
+    public var doThisToEveryButton: ((UIButton)->())?
     
     
     public var title : String? {
