@@ -32,4 +32,8 @@ Works perfectly well from Objective-C too, but **note**:
 
 ## Dependencies!
 
-You'll need Cartopgraphy. 
+You'll need [Cartopgraphy](https://github.com/robb/Cartography). Just run:
+1. git submodule init
+2. git submodule update
+
+And that's it!
