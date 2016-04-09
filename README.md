@@ -14,7 +14,7 @@ alert.addButtonWithTitle("I'm insane!") {
     print("yeah I'm out of my head")
 }
 alert.addButtonWithTitle("Show me another Alert") {
-    let alert2 = SimpleAlert(title:"Another Alert", message: "Different theme, get it?");
+    let alert2 = SimpleAlert.makeAlert("Another Alert", message: "Different theme, get it?");
     alert2.addButtonWithTitle("OK", block: {
         print("Okay")
     })

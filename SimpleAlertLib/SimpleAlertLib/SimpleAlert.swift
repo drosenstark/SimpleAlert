@@ -36,6 +36,17 @@ public class SimpleAlert: UIView {
     
     // working around a shared dependency on other stuff in my own libs
     public var doThisToEveryButton: ((UIButton)->())?
+
+    
+    // MARK: - class methods
+    public class func makeAlert(title: String, message: String) -> SimpleAlert {
+        let retVal = SimpleAlert()
+        retVal.title = title
+        retVal.message = message
+        retVal.theme = .Dark
+        return retVal
+    }
+    
     
     
     public var title : String? {
@@ -49,26 +60,6 @@ public class SimpleAlert: UIView {
             messageLabel.text = message
         }
     }
-    
-    required public init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    public convenience init(title: String, message: String) {
-        self.init()
-        // use block to ensure that didSet gets called
-        ({
-            self.title = title;
-            self.message = message
-            self.theme = .Dark
-        
-        })()
-    }
-    
     
     // MARK: - Add Methods
     public func addButtonWithTitle(title: String, block: ()->()) -> UIButton {
@@ -89,6 +80,7 @@ public class SimpleAlert: UIView {
         self.prepSubviews()
     }
     
+    // the initial value is for Objective-C to work
     public var theme : SimpleAlertTheme = .Dark {
         didSet {
             if (theme == .Dark) {
