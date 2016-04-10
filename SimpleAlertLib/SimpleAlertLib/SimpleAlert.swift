@@ -26,6 +26,7 @@ public class SimpleAlert: UIView {
     public var topIcon = UIView(frame: CGRectMake(0,0,50,50))
     public var modalBackgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
     public var boxBackgroundColor : UIColor!
+    public var otherViewBackgroundColor : UIColor!
     public var titleTextColor  : UIColor!
     public var messageTextColor  : UIColor!
     public var buttonHighlightColor  : UIColor!
@@ -99,6 +100,7 @@ public class SimpleAlert: UIView {
             }
             messageTextColor = titleTextColor
             otherViewBoxColor = buttonHighlightColor
+            otherViewBackgroundColor = boxBackgroundColor
         }
 
     }
@@ -212,7 +214,7 @@ public class SimpleAlert: UIView {
     }
 
     func handleButtonTouchUp(button: UIButton) {
-        button.backgroundColor = boxBackgroundColor
+        button.backgroundColor = otherViewBackgroundColor
     }
     func handleButtonTouchUpInside(button: UIButton) {
         self.dismiss()
