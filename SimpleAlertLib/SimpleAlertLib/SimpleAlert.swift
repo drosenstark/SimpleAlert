@@ -23,6 +23,7 @@ public class SimpleAlert: UIView {
     let otherViewsBox = UIView()
     var otherViews: [UIView] = []
 
+    public var topIcon = UIView(frame: CGRectMake(0,0,50,50))
     public var modalBackgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
     public var boxBackgroundColor : UIColor!
     public var titleTextColor  : UIColor!
@@ -30,6 +31,7 @@ public class SimpleAlert: UIView {
     public var buttonHighlightColor  : UIColor!
     public var otherViewBoxColor : UIColor!
 
+    public var boxWidth = CGFloat(250.0)
     public var topMargin = CGFloat(20.0)
     public var bottomMarginIfNecessary = CGFloat(20.0)
     public var sideMargin = CGFloat(20.0)
@@ -125,8 +127,8 @@ public class SimpleAlert: UIView {
 
     // public for being overridden
     public func prepSubviews() {
+        addSubview(topIcon)
         box.layer.cornerRadius = 10.0
-
         backgroundColor = modalBackgroundColor
         box.backgroundColor = boxBackgroundColor
         box.clipsToBounds = true
@@ -149,15 +151,17 @@ public class SimpleAlert: UIView {
         otherViewsBox.clipsToBounds = true
 
         let otherViewRowTotalHeight = otherViewRowHeight + otherViewRowSpace
-
-
         let otherViewsBoxHeight = otherViewRowTotalHeight * CGFloat(otherViews.count)
+        
+        self.bringSubviewToFront(self.topIcon)
 
-        constrain(self, box, titleLabel, messageLabel, otherViewsBox) { view, box, titleLabel, messageLabel, otherViewsBox in
-
+        constrain(self) { view in
             view.size == view.superview!.size
-            box.width == 250
-            box.center == view.center
+        }
+        
+        constrain(box, titleLabel, messageLabel, otherViewsBox) { box, titleLabel, messageLabel, otherViewsBox in
+            box.width == boxWidth
+            box.center == box.superview!.center
 
             titleLabel.width == box.width - sideMargin * 2
             titleLabel.centerX == box.centerX
@@ -169,7 +173,6 @@ public class SimpleAlert: UIView {
             otherViewsBox.width == box.width
             otherViewsBox.centerX == box.centerX
 
-
             titleLabel.top == box.top + topMargin
             messageLabel.top == titleLabel.bottom + spaceBetweenSections
 
@@ -177,10 +180,8 @@ public class SimpleAlert: UIView {
             otherViewsBox.top == messageLabel.bottom + spaceBetweenSections
 
             var boxHeightWithoutMessage = topMargin + titleHeight  + 2 * spaceBetweenSections
-            boxHeightWithoutMessage += (otherViewsBoxHeight > 0) ? otherViewsBoxHeight + otherViewInset * 0.25 : bottomMarginIfNecessary
-
+            boxHeightWithoutMessage += (otherViewsBoxHeight > 0) ? otherViewsBoxHeight + otherViewInset * 0.5 : bottomMarginIfNecessary
             box.height == messageLabel.height + boxHeightWithoutMessage
-
         }
 
         for (index, otherView) in otherViews.enumerate() {
@@ -189,7 +190,7 @@ public class SimpleAlert: UIView {
                 handleButtonTouchUp(button)
             }
 
-            let top = otherViewRowSpace + CGFloat(CGFloat(index) * otherViewRowTotalHeight + 0.25 * otherViewInset)
+            let top = 0.25 * otherViewInset + otherViewRowSpace + CGFloat(CGFloat(index) * otherViewRowTotalHeight + 0.25 * otherViewInset)
             constrain(otherViewsBox, otherView) { otherViewsBox, otherView in
                 otherView.height == otherViewRowHeight - 0.5 * otherViewInset
                 otherView.width == otherViewsBox.width - otherViewInset
@@ -217,7 +218,14 @@ public class SimpleAlert: UIView {
         self.dismiss()
     }
 
-
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        var frame = self.topIcon.frame
+        frame.origin.y = self.box.frame.origin.y - 0.5 * frame.size.height
+        frame.origin.x = 0.5 * (self.bounds.size.width - frame.size.width)
+        topIcon.frame = frame
+    
+    }
 
 }
 
