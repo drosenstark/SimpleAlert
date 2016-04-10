@@ -41,7 +41,9 @@ public class SimpleAlert: UIView {
     let titleHeight = CGFloat(30.0)
     public var otherViewRowHeight = CGFloat(40.0)
     public var otherViewRowSpace = CGFloat(0.5)
-
+    
+    var showWasAnimated = false
+    
     // working around a shared dependency on other stuff in my own libs
     public var doThisToEveryButton: ((UIButton)->())?
 
@@ -80,11 +82,32 @@ public class SimpleAlert: UIView {
 //        return setupButtonWithText(title, handler: block)
 //    }
 //
-    public func showInWindow(window: UIWindow)  {
+    public func showInWindow(window: UIWindow, animated : Bool = true)  {
         window.addSubview(self)
         self.frame = window.bounds
         self.prepSubviews()
+
+        if (animated) {
+            self.alpha = 0.0
+            UIView.animateWithDuration(0.5) {
+                self.alpha = 1.0
+            }
+        }
+        showWasAnimated = animated
     }
+    
+    public func dismiss() {
+        if (!showWasAnimated) {
+            self.removeFromSuperview()
+        } else {
+            UIView.animateWithDuration(0.5, animations: {
+                self.alpha = 0.0
+            }) { (_) in
+                self.removeFromSuperview()
+            }
+        }
+    }
+    
 
     // the initial value is for Objective-C to work
     public var theme : SimpleAlertTheme = .Dark {
@@ -204,9 +227,7 @@ public class SimpleAlert: UIView {
 
     }
 
-    public func dismiss() {
-        self.removeFromSuperview()
-    }
+    
 
     // MARK: - Each button calls these for highlighting background
     func handleButtonTouch(button: UIButton) {
