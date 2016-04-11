@@ -50,7 +50,7 @@ public class SimpleAlert: UIView {
     public var buttonInset = CGFloat(0.0)
     let titleHeight = CGFloat(30.0)
     public var buttonRowHeight = CGFloat(40.0)
-    public var buttonRowVerticalSpace = CGFloat(0.5)
+    public var buttonRowVerticalSpace = CGFloat(1.0)
 
     var showWasAnimated = false
 
@@ -263,12 +263,12 @@ public class SimpleAlert: UIView {
             textField.leftView = leftBox
             textField.leftViewMode = .Always
 
-            let top = textFieldRowVerticalSpace + CGFloat(CGFloat(index) * textFieldRowTotalHeight)
+            let top = CGFloat(CGFloat(index) * textFieldRowTotalHeight)
             constrain(textFieldsBox, textField) { textFieldsBox, textField in
-                textField.height == textFieldRowHeight - textFieldRowVerticalSpace
+                textField.height == textFieldRowHeight
                 textField.width == textFieldsBox.width - textFieldInset
                 textField.centerX == textFieldsBox.centerX
-                textField.top == textFieldsBox.top + top
+                textField.top == textFieldsBox.top + top + textFieldRowVerticalSpace
             }
 
         }
@@ -277,12 +277,12 @@ public class SimpleAlert: UIView {
             // change button color
             handleButtonTouchUp(button)
 
-            let top = buttonRowVerticalSpace + CGFloat(CGFloat(index) * buttonRowTotalHeight)
+            let top = CGFloat(CGFloat(index) * (buttonRowTotalHeight))
             constrain(buttonsBox, button) { buttonsBox, button in
-                button.height == buttonRowHeight - buttonRowVerticalSpace
+                button.height == buttonRowHeight
                 button.width == buttonsBox.width - buttonInset
                 button.centerX == buttonsBox.centerX
-                button.top == buttonsBox.top + top
+                button.top == buttonsBox.top + buttonRowVerticalSpace + top
             }
 
         }

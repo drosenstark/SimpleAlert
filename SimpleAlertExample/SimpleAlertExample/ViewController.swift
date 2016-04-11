@@ -12,6 +12,7 @@ import SimpleAlertLib
 class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
+        self.view.backgroundColor = UIColor.orangeColor()
         showFirstAlert()
     }
 
