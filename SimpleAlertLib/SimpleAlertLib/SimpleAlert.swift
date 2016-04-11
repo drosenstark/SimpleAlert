@@ -40,18 +40,20 @@ public class SimpleAlert: UIView {
     public var sideMargin = CGFloat(20.0)
     public var spaceBetweenSections = CGFloat(10.0)
 
+    public var textFieldTextColor = UIColor.blackColor()
+    public var textFieldPlaceholderColor = UIColor.darkGrayColor()
     public var textFieldBackgroundColor = UIColor.whiteColor()
     public var textFieldRowHeight = CGFloat(30.0)
-    public var textFieldRowVerticalSpace = CGFloat(0.5)
+    public var textFieldRowVerticalSpace = CGFloat(1.0)
     public var textFieldInset = CGFloat(10.0)
 
     public var buttonInset = CGFloat(0.0)
     let titleHeight = CGFloat(30.0)
     public var buttonRowHeight = CGFloat(40.0)
     public var buttonRowVerticalSpace = CGFloat(0.5)
-    
+
     var showWasAnimated = false
-    
+
     // working around a shared dependency on other stuff in my own libs
     public var doThisToEveryButton: ((UIButton)->())?
 
@@ -87,20 +89,20 @@ public class SimpleAlert: UIView {
         retVal.backgroundColor = UIColor.whiteColor()
         retVal.placeholder = placeholder
         retVal.secureTextEntry = secureEntry
-        retVal.font = UIFont.systemFontOfSize(12.0)
+        retVal.font = UIFont.systemFontOfSize(textFieldRowHeight / 3.0 + 2.0)
         if let handler = changeHandler {
             NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: retVal, queue: NSOperationQueue.mainQueue()) { (notification) in
                 handler(retVal)
             }
         }
 
-        
+
         textFields.append(retVal)
         textFieldsBox.addSubview(retVal)
 
         return retVal
     }
-    
+
 
     public func showInWindow(window: UIWindow, animated : Bool = true)  {
         window.addSubview(self)
@@ -115,7 +117,7 @@ public class SimpleAlert: UIView {
         }
         showWasAnimated = animated
     }
-    
+
     public func dismiss() {
         if (!showWasAnimated) {
             self.removeFromSuperview()
@@ -127,7 +129,7 @@ public class SimpleAlert: UIView {
             }
         }
     }
-    
+
 
     // the initial value is for Objective-C to work
     public var theme : SimpleAlertTheme = .Dark {
@@ -143,6 +145,8 @@ public class SimpleAlert: UIView {
                 buttonHighlightColor = UIColor.lightGrayColor()
                 textFieldBackgroundColor = UIColor.lightGrayColor()
             }
+            textFieldTextColor = UIColor.blackColor()
+            textFieldPlaceholderColor = UIColor.darkGrayColor()
             messageTextColor = titleTextColor
             buttonsBoxColor = buttonHighlightColor
             buttonsBoxBackgroundColor = boxBackgroundColor
@@ -204,13 +208,13 @@ public class SimpleAlert: UIView {
 
         let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
         let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
-        
+
         self.bringSubviewToFront(self.topIcon)
 
         constrain(self) { view in
             view.size == view.superview!.size
         }
-        
+
         constrain(box, titleLabel, messageLabel, buttonsBox, textFieldsBox) { box, titleLabel, messageLabel, buttonsBox, textFieldsBox in
             box.width == boxWidth
             box.center == box.superview!.center
@@ -240,25 +244,28 @@ public class SimpleAlert: UIView {
 
             var boxHeightWithoutMessage = topMargin + titleHeight  + 2 * spaceBetweenSections + spaceAfterTextFields
             boxHeightWithoutMessage += textFieldsBoxHeight // (textFieldsBoxHeight > 0) ? buttonsBoxHeight + buttonInset * 0.5 : bottomMarginIfNecessary
-            boxHeightWithoutMessage += (buttonsBoxHeight > 0) ? buttonsBoxHeight + buttonInset * 0.5 : bottomMarginIfNecessary
+            boxHeightWithoutMessage += (buttonsBoxHeight > 0) ? buttonsBoxHeight : bottomMarginIfNecessary
             box.height == messageLabel.height + boxHeightWithoutMessage
         }
 
 
         for (index, textField) in textFields.enumerate() {
-            
+
             textField.backgroundColor = textFieldBackgroundColor
-            
+            // [[NSAttributedString alloc] initWithString:@"PlaceHolder Text" attributes:@{NSForegroundColorAttributeName: color}];
+            if let placeholderText = textField.placeholder {
+                textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor]);
+            }
+
             let radiusAndInset = textFieldRowHeight / 8.0
             textField.layer.cornerRadius = radiusAndInset
-            let leftBox = UIView(frame: CGRectMake(0, 0, radiusAndInset, 1))
+            let leftBox = UIView(frame: CGRectMake(0, 0, radiusAndInset * 2.0, 1))
             textField.leftView = leftBox
             textField.leftViewMode = .Always
-                
-            
-            let top = 0.25 * textFieldInset + textFieldRowVerticalSpace + CGFloat(CGFloat(index) * textFieldRowTotalHeight + 0.25 * textFieldInset)
+
+            let top = textFieldRowVerticalSpace + CGFloat(CGFloat(index) * textFieldRowTotalHeight)
             constrain(textFieldsBox, textField) { textFieldsBox, textField in
-                textField.height == textFieldRowHeight - 0.5 * textFieldInset
+                textField.height == textFieldRowHeight - textFieldRowVerticalSpace
                 textField.width == textFieldsBox.width - textFieldInset
                 textField.centerX == textFieldsBox.centerX
                 textField.top == textFieldsBox.top + top
@@ -270,9 +277,9 @@ public class SimpleAlert: UIView {
             // change button color
             handleButtonTouchUp(button)
 
-            let top = 0.25 * buttonInset + buttonRowVerticalSpace + CGFloat(CGFloat(index) * buttonRowTotalHeight + 0.25 * buttonInset)
+            let top = buttonRowVerticalSpace + CGFloat(CGFloat(index) * buttonRowTotalHeight)
             constrain(buttonsBox, button) { buttonsBox, button in
-                button.height == buttonRowHeight - 0.5 * buttonInset
+                button.height == buttonRowHeight - buttonRowVerticalSpace
                 button.width == buttonsBox.width - buttonInset
                 button.centerX == buttonsBox.centerX
                 button.top == buttonsBox.top + top
@@ -282,7 +289,7 @@ public class SimpleAlert: UIView {
 
     }
 
-    
+
 
     // MARK: - Each button calls these for highlighting background
     func handleButtonTouch(button: UIButton) {
@@ -302,7 +309,7 @@ public class SimpleAlert: UIView {
         frame.origin.y = self.box.frame.origin.y - 0.5 * frame.size.height
         frame.origin.x = 0.5 * (self.bounds.size.width - frame.size.width)
         topIcon.frame = frame
-    
+
     }
 
 }
