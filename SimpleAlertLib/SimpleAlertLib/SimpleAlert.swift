@@ -19,7 +19,7 @@ public class SimpleAlert: UIView {
 
     let messageLabel = UILabel()
     let titleLabel = UILabel()
-    let box = UIView()
+    public let box = UIView()
     let buttonsBox = UIView()
     var buttons: [UIButton] = []
     let textFieldsBox = UIView()
@@ -80,7 +80,7 @@ public class SimpleAlert: UIView {
     }
 
     // MARK: - Add Methods
-    public func addButtonWithTitle(title: String, block: ()->()) -> UIButton {
+    public func addButtonWithTitle(title: String, block: (()->())?) -> UIButton {
         return setupButtonWithText(title, handler: block)
     }
 
@@ -157,7 +157,7 @@ public class SimpleAlert: UIView {
 
 
 
-    func setupButtonWithText(text: String, handler: ()->()) -> UIButton {
+    func setupButtonWithText(text: String, handler: (()->())?) -> UIButton {
         let button = ButtonSub.makeButtonSub(handler)
         if let doThis = self.doThisToEveryButton {
             doThis(button)
@@ -215,6 +215,8 @@ public class SimpleAlert: UIView {
             view.size == view.superview!.size
         }
 
+        let titleHeight = self.title == nil ? 0.0 : self.titleHeight
+        
         constrain(box, titleLabel, messageLabel, buttonsBox, textFieldsBox) { box, titleLabel, messageLabel, buttonsBox, textFieldsBox in
             box.width == boxWidth
             box.center == box.superview!.center
@@ -323,7 +325,7 @@ class ButtonSub : UIButton {
         super.init(frame: frame)
     }
 
-    class func makeButtonSub(handler: ()->()) -> ButtonSub {
+    class func makeButtonSub(handler: (()->())?) -> ButtonSub {
         let retVal = ButtonSub(type: .Custom)
         retVal.handler = handler
         retVal.addTarget(retVal, action: #selector(callHandler), forControlEvents: .TouchUpInside)
