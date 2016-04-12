@@ -59,7 +59,7 @@ public class SimpleAlert: UIView {
 
 
     // MARK: - class methods
-    public class func makeAlert(title: String, message: String) -> SimpleAlert {
+    public class func makeAlert(title: String?, message: String) -> SimpleAlert {
         let retVal = SimpleAlert()
         retVal.title = title
         retVal.message = message
