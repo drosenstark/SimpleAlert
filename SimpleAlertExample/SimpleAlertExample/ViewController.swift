@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         self.view.backgroundColor = UIColor.orangeColor()
         showFirstAlert()
+        for i in 1...5 {
+            showThirdAlert(i)
+        }
     }
 
     @IBAction func showFirstAlert() {
@@ -48,6 +51,14 @@ class ViewController: UIViewController {
         alert.theme = useLight ? .Light : .Dark
         alert.showInWindow(self.view.window!)
     
+    }
+    
+    func showThirdAlert(which: Int) {
+        let alert = SimpleAlert.makeAlert(nil, message: "Many alerts: \(which)");
+        alert.addButtonWithTitle("OK", block: {})
+        alert.theme = .Light
+        alert.showInWindow(self.view.window!)
+        
     }
     
     

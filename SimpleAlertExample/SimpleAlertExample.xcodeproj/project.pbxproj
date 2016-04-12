@@ -191,8 +191,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				C99E90A71CB95E31001E70CC /* PBXTargetDependency */,
 				C99E90C21CB95EBF001E70CC /* PBXTargetDependency */,
+				C99E90A71CB95E31001E70CC /* PBXTargetDependency */,
 			);
 			name = SimpleAlertExample;
 			productName = SimpleAlertExample;
