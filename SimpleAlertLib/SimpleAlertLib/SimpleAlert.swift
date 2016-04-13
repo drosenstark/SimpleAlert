@@ -49,7 +49,7 @@ public class SimpleAlert: UIView {
     public var textFieldInset = CGFloat(10.0)
     
     public var buttonInset = CGFloat(0.0)
-    let titleHeight = CGFloat(30.0)
+    public var titleHeight = CGFloat(30.0)
     public var buttonRowHeight = CGFloat(40.0)
     public var buttonRowVerticalSpace = CGFloat(1.0)
     
@@ -106,7 +106,6 @@ public class SimpleAlert: UIView {
     
     
     public func showInWindow(window: UIWindow, animated : Bool = true)  {
-        
         // if you're trying to show the same thing twice, we just get out
         if let lastAlert = SimpleAlert.lastAlert where lastAlert.superview != nil {
             if (lastAlert.title == self.title && lastAlert.message == self.message && lastAlert.buttons.count == self.buttons.count) {
@@ -225,18 +224,21 @@ public class SimpleAlert: UIView {
         box.addSubview(textFieldsBox)
         textFieldsBox.clipsToBounds = true
         
-        let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
-        let textFieldsBoxHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
-        
         box.addSubview(buttonsBox)
         buttonsBox.backgroundColor = buttonsBoxColor
         buttonsBox.clipsToBounds = true
         
-        let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
-        let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
         
         self.bringSubviewToFront(self.topIcon)
-        
+        self.setNeedsUpdateConstraints()
+    }
+    
+    public override func updateConstraints() {
+        let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
+        let textFieldsBoxHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
+        let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
+        let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
+
         constrain(self) { view in
             view.size == view.superview!.size
         }
@@ -314,6 +316,7 @@ public class SimpleAlert: UIView {
             }
             
         }
+        super.updateConstraints()
         
     }
     
