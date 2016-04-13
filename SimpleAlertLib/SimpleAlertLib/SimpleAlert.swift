@@ -119,7 +119,6 @@ public class SimpleAlert: UIView {
         
         
         window.addSubview(self)
-        self.frame = window.bounds
         self.prepSubviews()
         
         if (animated) {
@@ -229,6 +228,7 @@ public class SimpleAlert: UIView {
         buttonsBox.clipsToBounds = true
         
         
+        
         self.bringSubviewToFront(self.topIcon)
 
         let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
@@ -238,10 +238,16 @@ public class SimpleAlert: UIView {
 
         constrain(self) { view in
             view.size == view.superview!.size
+            view.center == view.superview!.center
         }
         
         let titleHeight = self.title == nil ? 0.0 : self.titleHeight
         
+        // Cartography code could be in updateConstraints override, however
+        // if there's any error in the constraints, then it's a problem with overrides 
+        // (because the UIKit stuff will fix the constraints)
+        //
+        // So we call it here just in case
         constrain(box, titleLabel, messageLabel, buttonsBox, textFieldsBox) { box, titleLabel, messageLabel, buttonsBox, textFieldsBox in
             box.width == boxWidth
             box.center == box.superview!.center
@@ -249,33 +255,26 @@ public class SimpleAlert: UIView {
             titleLabel.width == box.width - sideMargin * 2
             titleLabel.centerX == box.centerX
             titleLabel.height == titleHeight
-            
+            titleLabel.top == box.top + topMargin
+
             messageLabel.width == titleLabel.width
             messageLabel.centerX == box.centerX
-            
+            messageLabel.top == titleLabel.bottom + spaceBetweenSections
+
             textFieldsBox.width == box.width
             textFieldsBox.centerX == box.centerX
-            
-            buttonsBox.width == box.width
-            buttonsBox.centerX == box.centerX
-            
-            titleLabel.top == box.top + topMargin
-            messageLabel.top == titleLabel.bottom + spaceBetweenSections
-            
             textFieldsBox.height == textFieldsBoxHeight
             textFieldsBox.top == messageLabel.bottom + spaceBetweenSections
             let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 0 : spaceBetweenSections * 0.5
-            
+
+            buttonsBox.width == box.width
+            buttonsBox.centerX == box.centerX
             buttonsBox.height == buttonsBoxHeight
             buttonsBox.top == textFieldsBox.bottom + spaceAfterTextFields
-            
-            var boxHeightWithoutMessage = topMargin + titleHeight  + 2 * spaceBetweenSections + spaceAfterTextFields
-            boxHeightWithoutMessage += textFieldsBoxHeight // (textFieldsBoxHeight > 0) ? buttonsBoxHeight + buttonInset * 0.5 : bottomMarginIfNecessary
-            boxHeightWithoutMessage += (buttonsBoxHeight > 0) ? buttonsBoxHeight : bottomMarginIfNecessary
-            box.height == messageLabel.height + boxHeightWithoutMessage
+
+            box.bottom == buttonsBox.bottom
         }
-        
-        
+
         for (index, textField) in textFields.enumerate() {
             
             textField.backgroundColor = textFieldBackgroundColor

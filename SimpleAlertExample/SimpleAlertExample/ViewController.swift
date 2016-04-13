@@ -54,8 +54,9 @@ class ViewController: UIViewController {
     }
     
     func showThirdAlert(which: Int) {
-        let alert = SimpleAlert.makeAlert(nil, message: "Many alerts: \(which)");
+        let alert = SimpleAlert.makeAlert(nil, message: "\nAlert Number \(which)\n");
         alert.addButtonWithTitle("OK", block: {})
+        alert.topMargin = 0.0
         alert.theme = .Light
         alert.showInWindow(self.view.window!)
         
