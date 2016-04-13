@@ -18,13 +18,13 @@ public class SimpleAlert: UIView {
     
     weak static var lastAlert : SimpleAlert?
     
-    let messageLabel = UILabel()
-    let titleLabel = UILabel()
+    public let messageLabel = UILabel()
+    public let titleLabel = UILabel()
     public let box = UIView()
-    let buttonsBox = UIView()
-    var buttons: [UIButton] = []
-    let textFieldsBox = UIView()
-    var textFields: [UITextField] = []
+    public let buttonsBox = UIView()
+    public var buttons: [UIButton] = []
+    public let textFieldsBox = UIView()
+    public var textFields: [UITextField] = []
     
     public var topIcon = UIView(frame: CGRectMake(0,0,50,50))
     public var modalBackgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
@@ -230,10 +230,7 @@ public class SimpleAlert: UIView {
         
         
         self.bringSubviewToFront(self.topIcon)
-        self.setNeedsUpdateConstraints()
-    }
-    
-    public override func updateConstraints() {
+
         let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
         let textFieldsBoxHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
         let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
@@ -282,7 +279,6 @@ public class SimpleAlert: UIView {
         for (index, textField) in textFields.enumerate() {
             
             textField.backgroundColor = textFieldBackgroundColor
-            // [[NSAttributedString alloc] initWithString:@"PlaceHolder Text" attributes:@{NSForegroundColorAttributeName: color}];
             if let placeholderText = textField.placeholder {
                 textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor]);
             }
@@ -316,7 +312,6 @@ public class SimpleAlert: UIView {
             }
             
         }
-        super.updateConstraints()
         
     }
     
