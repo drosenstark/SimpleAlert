@@ -12,75 +12,16 @@
 		C99E90721CB95D26001E70CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99E90701CB95D26001E70CC /* Main.storyboard */; };
 		C99E90741CB95D26001E70CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C99E90731CB95D26001E70CC /* Assets.xcassets */; };
 		C99E90771CB95D26001E70CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99E90751CB95D26001E70CC /* LaunchScreen.storyboard */; };
-		C99E90A41CB95E31001E70CC /* SimpleAlertLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99E90A31CB95E2B001E70CC /* SimpleAlertLib.framework */; };
-		C99E90A51CB95E31001E70CC /* SimpleAlertLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C99E90A31CB95E2B001E70CC /* SimpleAlertLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C99E90BF1CB95EBF001E70CC /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99E90B41CB95EB1001E70CC /* Cartography.framework */; };
-		C99E90C01CB95EBF001E70CC /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C99E90B41CB95EB1001E70CC /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9EB179E1CC837F400FD8EE0 /* SimpleAlertLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EB179D1CC837E300FD8EE0 /* SimpleAlertLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C99E90A21CB95E2B001E70CC /* PBXContainerItemProxy */ = {
+		C9EB179C1CC837E300FD8EE0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C99E909E1CB95E2B001E70CC /* SimpleAlertLib.xcodeproj */;
+			containerPortal = C9EB17981CC837E300FD8EE0 /* SimpleAlertLib.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C99E90931CB95E14001E70CC;
 			remoteInfo = SimpleAlertLib;
-		};
-		C99E90A61CB95E31001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E909E1CB95E2B001E70CC /* SimpleAlertLib.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C99E90921CB95E14001E70CC;
-			remoteInfo = SimpleAlertLib;
-		};
-		C99E90B31CB95EB1001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 54C96A11195063CD000CDD27;
-			remoteInfo = "Cartography-iOS";
-		};
-		C99E90B51CB95EB1001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 54C96A1C195063CD000CDD27;
-			remoteInfo = "Cartography-iOS-Tests";
-		};
-		C99E90B71CB95EB1001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 54F6A838195C20C100313D24;
-			remoteInfo = "Cartography-Mac";
-		};
-		C99E90B91CB95EB1001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 54F6A842195C20C200313D24;
-			remoteInfo = "Cartography-Mac-Tests";
-		};
-		C99E90BB1CB95EB1001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 632F090A1BF1E7AA002431A3;
-			remoteInfo = "Cartography-tvOS";
-		};
-		C99E90BD1CB95EB1001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 632F09221BF1E7FC002431A3;
-			remoteInfo = "Cartography-tvOS-tests";
-		};
-		C99E90C11CB95EBF001E70CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 54C96A10195063CD000CDD27;
-			remoteInfo = "Cartography-iOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -91,10 +32,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C99E90A51CB95E31001E70CC /* SimpleAlertLib.framework in Embed Frameworks */,
-				C99E90C01CB95EBF001E70CC /* Cartography.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9AF7A011CC813B9005B266C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -107,8 +55,7 @@
 		C99E90731CB95D26001E70CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C99E90761CB95D26001E70CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C99E90781CB95D26001E70CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C99E909E1CB95E2B001E70CC /* SimpleAlertLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SimpleAlertLib.xcodeproj; path = ../SimpleAlertLib/SimpleAlertLib.xcodeproj; sourceTree = "<group>"; };
-		C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Cartography.xcodeproj; path = ../Cartography/Cartography.xcodeproj; sourceTree = "<group>"; };
+		C9EB17981CC837E300FD8EE0 /* SimpleAlertLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SimpleAlertLib.xcodeproj; path = ../SimpleAlertLib.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C99E90A41CB95E31001E70CC /* SimpleAlertLib.framework in Frameworks */,
-				C99E90BF1CB95EBF001E70CC /* Cartography.framework in Frameworks */,
+				C9EB179E1CC837F400FD8EE0 /* SimpleAlertLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,8 +73,7 @@
 		C99E90601CB95D26001E70CC = {
 			isa = PBXGroup;
 			children = (
-				C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */,
-				C99E909E1CB95E2B001E70CC /* SimpleAlertLib.xcodeproj */,
+				C9EB17981CC837E300FD8EE0 /* SimpleAlertLib.xcodeproj */,
 				C99E906B1CB95D26001E70CC /* SimpleAlertExample */,
 				C99E906A1CB95D26001E70CC /* Products */,
 			);
@@ -155,23 +100,10 @@
 			path = SimpleAlertExample;
 			sourceTree = "<group>";
 		};
-		C99E909F1CB95E2B001E70CC /* Products */ = {
+		C9EB17991CC837E300FD8EE0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C99E90A31CB95E2B001E70CC /* SimpleAlertLib.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C99E90AB1CB95EB1001E70CC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C99E90B41CB95EB1001E70CC /* Cartography.framework */,
-				C99E90B61CB95EB1001E70CC /* Cartography-iOS-Tests.xctest */,
-				C99E90B81CB95EB1001E70CC /* Cartography.framework */,
-				C99E90BA1CB95EB1001E70CC /* Cartography-Mac-Tests.xctest */,
-				C99E90BC1CB95EB1001E70CC /* Cartography.framework */,
-				C99E90BE1CB95EB1001E70CC /* Cartography-tvOS-tests.xctest */,
+				C9EB179D1CC837E300FD8EE0 /* SimpleAlertLib.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,12 +119,12 @@
 				C99E90661CB95D26001E70CC /* Frameworks */,
 				C99E90671CB95D26001E70CC /* Resources */,
 				C99E90881CB95D5F001E70CC /* Embed Frameworks */,
+				C9AF79FE1CC81392005B266C /* Run Script (Carthage: You must run `carthage update --platform iOS` first  */,
+				C9AF7A011CC813B9005B266C /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C99E90C21CB95EBF001E70CC /* PBXTargetDependency */,
-				C99E90A71CB95E31001E70CC /* PBXTargetDependency */,
 			);
 			name = SimpleAlertExample;
 			productName = SimpleAlertExample;
@@ -227,12 +159,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C99E90AB1CB95EB1001E70CC /* Products */;
-					ProjectRef = C99E90AA1CB95EB1001E70CC /* Cartography.xcodeproj */;
-				},
-				{
-					ProductGroup = C99E909F1CB95E2B001E70CC /* Products */;
-					ProjectRef = C99E909E1CB95E2B001E70CC /* SimpleAlertLib.xcodeproj */;
+					ProductGroup = C9EB17991CC837E300FD8EE0 /* Products */;
+					ProjectRef = C9EB17981CC837E300FD8EE0 /* SimpleAlertLib.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -243,53 +171,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C99E90A31CB95E2B001E70CC /* SimpleAlertLib.framework */ = {
+		C9EB179D1CC837E300FD8EE0 /* SimpleAlertLib.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SimpleAlertLib.framework;
-			remoteRef = C99E90A21CB95E2B001E70CC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C99E90B41CB95EB1001E70CC /* Cartography.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Cartography.framework;
-			remoteRef = C99E90B31CB95EB1001E70CC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C99E90B61CB95EB1001E70CC /* Cartography-iOS-Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Cartography-iOS-Tests.xctest";
-			remoteRef = C99E90B51CB95EB1001E70CC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C99E90B81CB95EB1001E70CC /* Cartography.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Cartography.framework;
-			remoteRef = C99E90B71CB95EB1001E70CC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C99E90BA1CB95EB1001E70CC /* Cartography-Mac-Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Cartography-Mac-Tests.xctest";
-			remoteRef = C99E90B91CB95EB1001E70CC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C99E90BC1CB95EB1001E70CC /* Cartography.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Cartography.framework;
-			remoteRef = C99E90BB1CB95EB1001E70CC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C99E90BE1CB95EB1001E70CC /* Cartography-tvOS-tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Cartography-tvOS-tests.xctest";
-			remoteRef = C99E90BD1CB95EB1001E70CC /* PBXContainerItemProxy */;
+			remoteRef = C9EB179C1CC837E300FD8EE0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -307,6 +193,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C9AF79FE1CC81392005B266C /* Run Script (Carthage: You must run `carthage update --platform iOS` first  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/build/iOS/Cartography.framework",
+			);
+			name = "Run Script (Carthage: You must run `carthage update --platform iOS` first ";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C99E90651CB95D26001E70CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -318,19 +222,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C99E90A71CB95E31001E70CC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SimpleAlertLib;
-			targetProxy = C99E90A61CB95E31001E70CC /* PBXContainerItemProxy */;
-		};
-		C99E90C21CB95EBF001E70CC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Cartography-iOS";
-			targetProxy = C99E90C11CB95EBF001E70CC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C99E90701CB95D26001E70CC /* Main.storyboard */ = {
@@ -442,6 +333,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SimpleAlertExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertExample;
@@ -454,6 +350,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SimpleAlertExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertExample;

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:SimpleAlertExample.xcodeproj">
+      location = "group:SimpleAlertExample/SimpleAlertExample.xcodeproj">
    </FileRef>
 </Workspace>

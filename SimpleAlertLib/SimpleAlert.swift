@@ -18,13 +18,13 @@ public class SimpleAlert: UIView {
     
     weak static var lastAlert : SimpleAlert?
     
-    public let messageLabel = UILabel()
-    public let titleLabel = UILabel()
+    let messageLabel = UILabel()
+    let titleLabel = UILabel()
     public let box = UIView()
     public let buttonsBox = UIView()
     public var buttons: [UIButton] = []
-    public let textFieldsBox = UIView()
-    public var textFields: [UITextField] = []
+    let textFieldsBox = UIView()
+    var textFields: [UITextField] = []
     
     public var topIcon = UIView(frame: CGRectMake(0,0,50,50))
     public var modalBackgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
@@ -49,7 +49,7 @@ public class SimpleAlert: UIView {
     public var textFieldInset = CGFloat(10.0)
     
     public var buttonInset = CGFloat(0.0)
-    public var titleHeight = CGFloat(30.0)
+    let titleHeight = CGFloat(30.0)
     public var buttonRowHeight = CGFloat(40.0)
     public var buttonRowVerticalSpace = CGFloat(1.0)
     
@@ -106,6 +106,7 @@ public class SimpleAlert: UIView {
     
     
     public func showInWindow(window: UIWindow, animated : Bool = true)  {
+        
         // if you're trying to show the same thing twice, we just get out
         if let lastAlert = SimpleAlert.lastAlert where lastAlert.superview != nil {
             if (lastAlert.title == self.title && lastAlert.message == self.message && lastAlert.buttons.count == self.buttons.count) {
@@ -119,6 +120,7 @@ public class SimpleAlert: UIView {
         
         
         window.addSubview(self)
+        self.frame = window.bounds
         self.prepSubviews()
         
         if (animated) {
@@ -223,31 +225,24 @@ public class SimpleAlert: UIView {
         box.addSubview(textFieldsBox)
         textFieldsBox.clipsToBounds = true
         
+        let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
+        let textFieldsBoxHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
+        
         box.addSubview(buttonsBox)
         buttonsBox.backgroundColor = buttonsBoxColor
         buttonsBox.clipsToBounds = true
         
-        
-        
-        self.bringSubviewToFront(self.topIcon)
-
-        let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
-        let textFieldsBoxHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
         let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
         let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
-
+        
+        self.bringSubviewToFront(self.topIcon)
+        
         constrain(self) { view in
             view.size == view.superview!.size
-            view.center == view.superview!.center
         }
         
         let titleHeight = self.title == nil ? 0.0 : self.titleHeight
         
-        // Cartography code could be in updateConstraints override, however
-        // if there's any error in the constraints, then it's a problem with overrides 
-        // (because the UIKit stuff will fix the constraints)
-        //
-        // So we call it here just in case
         constrain(box, titleLabel, messageLabel, buttonsBox, textFieldsBox) { box, titleLabel, messageLabel, buttonsBox, textFieldsBox in
             box.width == boxWidth
             box.center == box.superview!.center
@@ -255,29 +250,37 @@ public class SimpleAlert: UIView {
             titleLabel.width == box.width - sideMargin * 2
             titleLabel.centerX == box.centerX
             titleLabel.height == titleHeight
-            titleLabel.top == box.top + topMargin
-
+            
             messageLabel.width == titleLabel.width
             messageLabel.centerX == box.centerX
-            messageLabel.top == titleLabel.bottom + spaceBetweenSections
-
+            
             textFieldsBox.width == box.width
             textFieldsBox.centerX == box.centerX
+            
+            buttonsBox.width == box.width
+            buttonsBox.centerX == box.centerX
+            
+            titleLabel.top == box.top + topMargin
+            messageLabel.top == titleLabel.bottom + spaceBetweenSections
+            
             textFieldsBox.height == textFieldsBoxHeight
             textFieldsBox.top == messageLabel.bottom + spaceBetweenSections
             let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 0 : spaceBetweenSections * 0.5
-
-            buttonsBox.width == box.width
-            buttonsBox.centerX == box.centerX
+            
             buttonsBox.height == buttonsBoxHeight
             buttonsBox.top == textFieldsBox.bottom + spaceAfterTextFields
-
-            box.bottom == buttonsBox.bottom
+            
+            var boxHeightWithoutMessage = topMargin + titleHeight  + 2 * spaceBetweenSections + spaceAfterTextFields
+            boxHeightWithoutMessage += textFieldsBoxHeight // (textFieldsBoxHeight > 0) ? buttonsBoxHeight + buttonInset * 0.5 : bottomMarginIfNecessary
+            boxHeightWithoutMessage += (buttonsBoxHeight > 0) ? buttonsBoxHeight : bottomMarginIfNecessary
+            box.height == messageLabel.height + boxHeightWithoutMessage
         }
-
+        
+        
         for (index, textField) in textFields.enumerate() {
             
             textField.backgroundColor = textFieldBackgroundColor
+            // [[NSAttributedString alloc] initWithString:@"PlaceHolder Text" attributes:@{NSForegroundColorAttributeName: color}];
             if let placeholderText = textField.placeholder {
                 textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor]);
             }
