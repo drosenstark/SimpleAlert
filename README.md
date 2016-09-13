@@ -31,6 +31,26 @@ alert.addButtonWithTitle("Never Ask Me Again") {
 alert.showInWindow(self.view.window!)
 ```
 
+### Example with Text Entry Fields
+
+![Example Text Field Entry](http://dr2050.com/automatic-images/SimpleAlertUsernamePass.png)
+
+```swift
+let alert = SimpleAlert.makeAlert("Another Alert", message: "You could fill out these boxes.");
+let username = alert.addTextFieldWithPlaceholder("Username", secureEntry: false, changeHandler: { (textField) in
+    print("typing!")
+})
+alert.addTextFieldWithPlaceholder("Pass", secureEntry: true, changeHandler: nil)
+alert.addButtonWithTitle("OK", block: {
+    print("Okay pressed, username is: \(username.text!)")
+})
+alert.addButtonWithTitle("Cancel", block: {})
+alert.theme = useLight ? .Light : .Dark
+alert.showInWindow(self.view.window!)
+```
+
+
+
 ## With Objective-C
 
 Works perfectly well from Objective-C too, but **note**:
