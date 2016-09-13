@@ -53,6 +53,9 @@ public class SimpleAlert: UIView {
     public var buttonRowHeight = CGFloat(40.0)
     public var buttonRowVerticalSpace = CGFloat(1.0)
     
+    public var showAlertInTopHalf : Bool = false
+
+    
     var showWasAnimated = false
     
     // working around a shared dependency on other stuff in my own libs
@@ -245,7 +248,12 @@ public class SimpleAlert: UIView {
         
         constrain(box, titleLabel, messageLabel, buttonsBox, textFieldsBox) { box, titleLabel, messageLabel, buttonsBox, textFieldsBox in
             box.width == boxWidth
-            box.center == box.superview!.center
+            if (showAlertInTopHalf) {
+                box.centerY == box.superview!.centerY * 0.50
+                box.centerX == box.superview!.centerX
+            } else {
+                box.center == box.superview!.center
+            }
             
             titleLabel.width == box.width - sideMargin * 2
             titleLabel.centerX == box.centerX
