@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3775F6C61D8B635B0056A88B /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3775F6C51D8B635B0056A88B /* Cartography.framework */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3775F6C51D8B635B0056A88B /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/iOS/Cartography.framework; sourceTree = "<group>"; };
 		C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90961CB95E14001E70CC /* SimpleAlertLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAlertLib.h; sourceTree = "<group>"; };
 		C99E90981CB95E14001E70CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -23,6 +25,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3775F6C61D8B635B0056A88B /* Cartography.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +35,7 @@
 		C99E90891CB95E14001E70CC = {
 			isa = PBXGroup;
 			children = (
+				3775F6C51D8B635B0056A88B /* Cartography.framework */,
 				C99E90951CB95E14001E70CC /* SimpleAlertLib */,
 				C99E90941CB95E14001E70CC /* Products */,
 			);
@@ -243,6 +247,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimpleAlertLib",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -268,6 +273,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimpleAlertLib",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

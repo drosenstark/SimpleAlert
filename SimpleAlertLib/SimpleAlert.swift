@@ -86,7 +86,11 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
     // MARK: - Add Methods
     public func addButtonWithTitle(title: String, block: (()->())?) -> UIButton {
-        return setupButtonWithText(title, handler: block)
+        return addButtonWithTitle(title, dismissAlertOnTouchUp: true, block: block)
+    }
+
+    public func addButtonWithTitle(title: String, dismissAlertOnTouchUp: Bool, block: (()->())?) -> UIButton {
+        return setupButtonWithText(title, dismissAlertOnTouchUp: dismissAlertOnTouchUp, handler: block)
     }
 
     public func addTextFieldWithPlaceholder(placeholder:String, secureEntry: Bool, changeHandler: ((UITextField)->())?) -> UITextField {
@@ -191,7 +195,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
     var frameBeforePullup : CGRect?
     var framePulledUp : CGRect?
     var bottomOfTextNeedsPullUpBy : CGFloat?
-    
+
     public func keyboardDidShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else {
             return
@@ -200,7 +204,8 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
             return
         }
         let textField = self.textFields.last!
-        let textFieldFrame = textField.window!.convertRect(textField.frame, fromView: textField.superview)
+        var textFieldFrame = textField.window!.convertRect(textField.frame, fromView: textField.superview)
+        textFieldFrame.size.height += 10
         if keyboardFrame.intersects(textFieldFrame) {
             if (frameBeforePullup == nil) {
                 frameBeforePullup = box.frame
@@ -221,7 +226,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
         layoutTopIcon()
         framePulledUp = nil
     }
-    
+
     // MARK: - Theme
     // the initial value is for Objective-C to work
     public var theme : SimpleAlertTheme = .Dark {
@@ -237,9 +242,9 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
                 boxBackgroundColor = UIColor.whiteColor()
                 titleTextColor = UIColor.blackColor()
                 buttonHighlightColor = UIColor.lightGrayColor()
-                textFieldBackgroundColor = UIColor.darkGrayColor()
+                textFieldBackgroundColor = UIColor.blackColor()
                 textFieldTextColor = UIColor.whiteColor()
-                textFieldPlaceholderColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+                textFieldPlaceholderColor = UIColor.lightGrayColor()
             }
             messageTextColor = titleTextColor
             buttonsBoxColor = buttonHighlightColor
@@ -251,7 +256,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
 
 
-    func setupButtonWithText(text: String, handler: (()->())?) -> UIButton {
+    func setupButtonWithText(text: String, dismissAlertOnTouchUp: Bool = true, handler: (()->())?) -> UIButton {
         let button = ButtonSub.makeButtonSub(handler)
         if let doThis = self.doThisToEveryButton {
             doThis(button)
@@ -261,7 +266,11 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
         button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouch(_:)), forControlEvents: UIControlEvents.TouchDown)
         button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), forControlEvents: UIControlEvents.TouchUpOutside)
-        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUpInside(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        if (dismissAlertOnTouchUp) {
+            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUpInside(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        } else {
+            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        }
         buttonsBox.addSubview(button)
         buttons.append(button)
 
@@ -405,6 +414,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
     func handleButtonTouchUp(button: UIButton) {
         button.backgroundColor = buttonsBoxBackgroundColor
     }
+
     func handleButtonTouchUpInside(button: UIButton) {
         self.dismiss()
     }
@@ -413,7 +423,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
         super.layoutSubviews()
         layoutTopIcon()
     }
-    
+
     func layoutTopIcon() {
         var frame = self.topIcon.frame
         frame.origin.y = self.box.frame.origin.y - 0.5 * frame.size.height
