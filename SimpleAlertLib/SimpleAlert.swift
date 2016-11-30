@@ -10,98 +10,102 @@ import UIKit
 import Cartography
 
 
-@objc public enum SimpleAlertTheme : Int { case Dark, Light }
+@objc public enum SimpleAlertTheme : Int { case dark, light }
 
 
 @objc(SimpleAlert)
-public class SimpleAlert: UIView, UITextFieldDelegate {
+open class SimpleAlert: UIView, UITextFieldDelegate {
 
     weak static var lastAlert : SimpleAlert?
 
     let messageLabel = UILabel()
     let titleLabel = UILabel()
-    public let box = UIView()
-    public let buttonsBox = UIView()
-    public var buttons: [UIButton] = []
+    open let box = UIView()
+    open let buttonsBox = UIView()
+    open var buttons: [UIButton] = []
     let textFieldsBox = UIView()
     var textFields: [UITextField] = []
-    public var doNotAutomaticallyEnableTheseButtons : [UIButton] = []
+    open var doNotAutomaticallyEnableTheseButtons : [UIButton] = []
 
-    public var topIcon = UIView(frame: CGRectMake(0,0,50,50))
-    public var modalBackgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
-    public var boxBackgroundColor : UIColor!
-    public var buttonsBoxBackgroundColor: UIColor!
-    public var titleTextColor  : UIColor!
-    public var messageTextColor  : UIColor!
-    public var buttonHighlightColor  : UIColor!
-    public var buttonsBoxColor: UIColor!
+    open var topIcon = UIView(frame: CGRect(x: 0,y: 0,width: 50,height: 50))
+    open var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
+    open var boxBackgroundColor : UIColor!
+    open var buttonsBoxBackgroundColor: UIColor!
+    open var titleTextColor  : UIColor!
+    open var messageTextColor  : UIColor!
+    open var buttonHighlightColor  : UIColor!
+    open var buttonsBoxColor: UIColor!
 
-    public var boxWidth = CGFloat(250.0)
-    public var topMargin = CGFloat(20.0)
-    public var bottomMarginIfNecessary = CGFloat(20.0)
-    public var sideMargin = CGFloat(20.0)
-    public var spaceBetweenSections = CGFloat(10.0)
+    open var boxWidth = CGFloat(250.0)
+    open var topMargin = CGFloat(20.0)
+    open var bottomMarginIfNecessary = CGFloat(20.0)
+    open var sideMargin = CGFloat(20.0)
+    open var spaceBetweenSections = CGFloat(10.0)
 
-    public var textFieldTextColor = UIColor.blackColor()
-    public var textFieldPlaceholderColor = UIColor.darkGrayColor()
-    public var textFieldBackgroundColor = UIColor.whiteColor()
-    public var textFieldRowHeight = CGFloat(30.0)
-    public var textFieldRowVerticalSpace = CGFloat(1.0)
-    public var textFieldInset = CGFloat(10.0)
+    open var textFieldTextColor = UIColor.black
+    open var textFieldPlaceholderColor = UIColor.darkGray
+    open var textFieldBackgroundColor = UIColor.white
+    open var textFieldRowHeight = CGFloat(30.0)
+    open var textFieldRowVerticalSpace = CGFloat(1.0)
+    open var textFieldInset = CGFloat(10.0)
 
-    public var buttonInset = CGFloat(0.0)
+    open var buttonInset = CGFloat(0.0)
     let titleHeight = CGFloat(30.0)
-    public var buttonRowHeight = CGFloat(40.0)
-    public var buttonRowVerticalSpace = CGFloat(1.0)
+    open var buttonRowHeight = CGFloat(40.0)
+    open var buttonRowVerticalSpace = CGFloat(1.0)
 
-    public var showAlertInTopHalf : Bool = false
+    open var showAlertInTopHalf : Bool = false
 
 
     var showWasAnimated = false
 
     // working around a shared dependency on other stuff in my own libs
-    public var doThisToEveryButton: ((UIButton)->())?
+    open var doThisToEveryButton: ((UIButton)->())?
 
 
     // MARK: - class methods
-    public class func makeAlert(title: String?, message: String) -> SimpleAlert {
+    @objc(makeAlertWithTitle:message:)
+    open class func makeAlert(_ title: String?, message: String) -> SimpleAlert {
         let retVal = SimpleAlert()
         retVal.title = title
         retVal.message = message
-        retVal.theme = .Dark
+        retVal.theme = .dark
         return retVal
     }
 
-    public var title : String? {
+    open var title : String? {
         didSet {
             titleLabel.text = title
         }
     }
 
-    public var message : String? {
+    open var message : String? {
         didSet {
             messageLabel.text = message
         }
     }
 
     // MARK: - Add Methods
-    public func addButtonWithTitle(title: String, block: (()->())?) -> UIButton {
+    @discardableResult
+    open func addButtonWithTitle(_ title: String, block: (()->())?) -> UIButton {
         return addButtonWithTitle(title, dismissAlertOnTouchUp: true, block: block)
     }
 
-    public func addButtonWithTitle(title: String, dismissAlertOnTouchUp: Bool, block: (()->())?) -> UIButton {
+    @discardableResult
+    open func addButtonWithTitle(_ title: String, dismissAlertOnTouchUp: Bool, block: (()->())?) -> UIButton {
         return setupButtonWithText(title, dismissAlertOnTouchUp: dismissAlertOnTouchUp, handler: block)
     }
 
-    public func addTextFieldWithPlaceholder(placeholder:String, secureEntry: Bool, changeHandler: ((UITextField)->())?) -> UITextField {
+    @discardableResult
+    open func addTextFieldWithPlaceholder(_ placeholder:String, secureEntry: Bool, changeHandler: ((UITextField)->())?) -> UITextField {
         let retVal = UITextField()
-        retVal.backgroundColor = UIColor.whiteColor()
+        retVal.backgroundColor = UIColor.white
         retVal.placeholder = placeholder
-        retVal.secureTextEntry = secureEntry
-        retVal.font = UIFont.systemFontOfSize(textFieldRowHeight / 3.0 + 2.0)
+        retVal.isSecureTextEntry = secureEntry
+        retVal.font = UIFont.systemFont(ofSize: textFieldRowHeight / 3.0 + 2.0)
         retVal.delegate = self
         if let handler = changeHandler {
-            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: retVal, queue: NSOperationQueue.mainQueue()) { (notification) in
+            NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: retVal, queue: OperationQueue.main) { (notification) in
                 handler(retVal)
             }
         }
@@ -114,14 +118,14 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
     }
 
 
-    public func showInWindow(window: UIWindow, animated : Bool = true)  {
+    open func showInWindow(_ window: UIWindow, animated : Bool = true)  {
 
         // if you're trying to show the same thing twice, we just get out
-        if let lastAlert = SimpleAlert.lastAlert where lastAlert.superview != nil {
+        if let lastAlert = SimpleAlert.lastAlert, lastAlert.superview != nil {
             if (lastAlert.title == self.title && lastAlert.message == self.message && lastAlert.buttons.count == self.buttons.count) {
                 return
             } else {
-                self.modalBackgroundColor = UIColor.clearColor()
+                self.modalBackgroundColor = UIColor.clear
             }
         } else {
             SimpleAlert.lastAlert = self
@@ -134,20 +138,20 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
         if (animated) {
             self.alpha = 0.0
-            UIView.animateWithDuration(0.5) {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.alpha = 1.0
-            }
+            })
         }
 
-        self.performSelector(#selector(enableButtons), withObject: nil, afterDelay: 0.5)
+        self.perform(#selector(enableButtons), with: nil, afterDelay: 0.5)
         showWasAnimated = animated
     }
 
-    public func enableButtons() {
+    open func enableButtons() {
         addKeyboardNotifications()
         for button in self.buttons {
             if (!doNotAutomaticallyEnableTheseButtons.contains(button)) {
-                button.enabled = true
+                button.isEnabled = true
             }
         }
     }
@@ -158,53 +162,53 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
         removeKeyboardNotifications()
     }
 
-    public func dismiss() {
+    open func dismiss() {
         removeKeyboardNotifications()
         if (!showWasAnimated) {
             self.removeFromSuperview()
         } else {
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.alpha = 0.0
-            }) { (_) in
+            }, completion: { (_) in
                 self.removeFromSuperview()
-            }
+            })
         }
     }
 
     // MARK: - UITextFieldDelegate Methods
-    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
     }
 
-    public func textFieldDidBeginEditing(textField: UITextField) {
+    open func textFieldDidBeginEditing(_ textField: UITextField) {
     }
 
 
     // MARK: - Keyboard notifications to get UITextFields out of the way
     func addKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
 
     func removeKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     var frameBeforePullup : CGRect?
     var framePulledUp : CGRect?
     var bottomOfTextNeedsPullUpBy : CGFloat?
 
-    public func keyboardDidShow(notification: NSNotification) {
+    open func keyboardDidShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let keyboardFrame : CGRect = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue() else {
+        guard let keyboardFrame : CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
             return
         }
-        let textField = self.textFields.last!
-        var textFieldFrame = textField.window!.convertRect(textField.frame, fromView: textField.superview)
+        guard let textField = self.textFields.last else { return }
+        var textFieldFrame = textField.window!.convert(textField.frame, from: textField.superview)
         textFieldFrame.size.height += 10
         if keyboardFrame.intersects(textFieldFrame) {
             if (frameBeforePullup == nil) {
@@ -220,7 +224,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
         return
     }
 
-    public func keyboardDidHide(notification: NSNotification) {
+    open func keyboardDidHide(_ notification: Notification) {
         guard let frameBeforePullup = frameBeforePullup else { return }
         box.frame = frameBeforePullup
         layoutTopIcon()
@@ -229,22 +233,22 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
     // MARK: - Theme
     // the initial value is for Objective-C to work
-    public var theme : SimpleAlertTheme = .Dark {
+    open var theme : SimpleAlertTheme = .dark {
         didSet {
-            if (theme == .Dark) {
-                boxBackgroundColor = UIColor.blackColor()
-                titleTextColor = UIColor.whiteColor()
-                buttonHighlightColor = UIColor.lightGrayColor()
-                textFieldBackgroundColor = UIColor.whiteColor()
-                textFieldTextColor = UIColor.blackColor()
-                textFieldPlaceholderColor = UIColor.darkGrayColor()
+            if (theme == .dark) {
+                boxBackgroundColor = UIColor.black
+                titleTextColor = UIColor.white
+                buttonHighlightColor = UIColor.lightGray
+                textFieldBackgroundColor = UIColor.white
+                textFieldTextColor = UIColor.black
+                textFieldPlaceholderColor = UIColor.darkGray
             } else {
-                boxBackgroundColor = UIColor.whiteColor()
-                titleTextColor = UIColor.blackColor()
-                buttonHighlightColor = UIColor.lightGrayColor()
-                textFieldBackgroundColor = UIColor.blackColor()
-                textFieldTextColor = UIColor.whiteColor()
-                textFieldPlaceholderColor = UIColor.lightGrayColor()
+                boxBackgroundColor = UIColor.white
+                titleTextColor = UIColor.black
+                buttonHighlightColor = UIColor.lightGray
+                textFieldBackgroundColor = UIColor.black
+                textFieldTextColor = UIColor.white
+                textFieldPlaceholderColor = UIColor.lightGray
             }
             messageTextColor = titleTextColor
             buttonsBoxColor = buttonHighlightColor
@@ -256,20 +260,20 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
 
 
-    func setupButtonWithText(text: String, dismissAlertOnTouchUp: Bool = true, handler: (()->())?) -> UIButton {
+    func setupButtonWithText(_ text: String, dismissAlertOnTouchUp: Bool = true, handler: (()->())?) -> UIButton {
         let button = ButtonSub.makeButtonSub(handler)
         if let doThis = self.doThisToEveryButton {
             doThis(button)
         }
-        button.setTitle(text, forState: .Normal)
-        button.setTitleColor(self.tintColor, forState: UIControlState.Normal)
+        button.setTitle(text, for: UIControlState())
+        button.setTitleColor(self.tintColor, for: UIControlState())
 
-        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouch(_:)), forControlEvents: UIControlEvents.TouchDown)
-        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), forControlEvents: UIControlEvents.TouchUpOutside)
+        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouch(_:)), for: UIControlEvents.touchDown)
+        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControlEvents.touchUpOutside)
         if (dismissAlertOnTouchUp) {
-            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUpInside(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUpInside(_:)), for: UIControlEvents.touchUpInside)
         } else {
-            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControlEvents.touchUpInside)
         }
         buttonsBox.addSubview(button)
         buttons.append(button)
@@ -280,7 +284,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
     var boxConstraints : ConstraintGroup!
 
     // public for being overridden
-    public func prepSubviews() {
+    open func prepSubviews() {
         addSubview(topIcon)
         box.layer.cornerRadius = 10.0
         backgroundColor = modalBackgroundColor
@@ -288,15 +292,15 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
         box.clipsToBounds = true
         addSubview(box)
 
-        titleLabel.font = UIFont.boldSystemFontOfSize(17.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
         titleLabel.numberOfLines = 1
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.textColor = titleTextColor
         box.addSubview(titleLabel)
 
-        messageLabel.font = UIFont.systemFontOfSize(13.0)
+        messageLabel.font = UIFont.systemFont(ofSize: 13.0)
         messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .Center
+        messageLabel.textAlignment = .center
         messageLabel.textColor = messageTextColor
         box.addSubview(messageLabel)
 
@@ -313,7 +317,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
         let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
         let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
 
-        self.bringSubviewToFront(self.topIcon)
+        self.bringSubview(toFront: self.topIcon)
 
         constrain(self) { view in
             view.size == view.superview!.size
@@ -362,7 +366,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
         }
 
 
-        for (index, textField) in textFields.enumerate() {
+        for (index, textField) in textFields.enumerated() {
 
             textField.backgroundColor = textFieldBackgroundColor
             textField.textColor = textFieldTextColor
@@ -374,9 +378,9 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
             let radiusAndInset = textFieldRowHeight / 8.0
             textField.layer.cornerRadius = radiusAndInset
-            let leftBox = UIView(frame: CGRectMake(0, 0, radiusAndInset * 2.0, 1))
+            let leftBox = UIView(frame: CGRect(x: 0, y: 0, width: radiusAndInset * 2.0, height: 1))
             textField.leftView = leftBox
-            textField.leftViewMode = .Always
+            textField.leftViewMode = .always
 
             let top = CGFloat(CGFloat(index) * textFieldRowTotalHeight)
             constrain(textFieldsBox, textField) { textFieldsBox, textField in
@@ -388,7 +392,7 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
         }
 
-        for (index, button) in buttons.enumerate() {
+        for (index, button) in buttons.enumerated() {
             // change button color
             handleButtonTouchUp(button)
 
@@ -407,19 +411,19 @@ public class SimpleAlert: UIView, UITextFieldDelegate {
 
 
     // MARK: - Each button calls these for highlighting background
-    func handleButtonTouch(button: UIButton) {
+    func handleButtonTouch(_ button: UIButton) {
         button.backgroundColor = buttonHighlightColor
     }
 
-    func handleButtonTouchUp(button: UIButton) {
+    func handleButtonTouchUp(_ button: UIButton) {
         button.backgroundColor = buttonsBoxBackgroundColor
     }
 
-    func handleButtonTouchUpInside(button: UIButton) {
+    func handleButtonTouchUpInside(_ button: UIButton) {
         self.dismiss()
     }
 
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         layoutTopIcon()
     }
@@ -443,16 +447,16 @@ class ButtonSub : UIButton {
         super.init(frame: frame)
     }
 
-    class func makeButtonSub(handler: (()->())?) -> ButtonSub {
-        let retVal = ButtonSub(type: .Custom)
+    class func makeButtonSub(_ handler: (()->())?) -> ButtonSub {
+        let retVal = ButtonSub(type: .custom)
         retVal.handler = handler
-        retVal.addTarget(retVal, action: #selector(callHandler), forControlEvents: .TouchUpInside)
-        retVal.enabled = false
+        retVal.addTarget(retVal, action: #selector(callHandler), for: .touchUpInside)
+        retVal.isEnabled = false
         return retVal
     }
 
     init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
     }
 
     required init?(coder: NSCoder) {

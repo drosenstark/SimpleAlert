@@ -11,8 +11,8 @@ import SimpleAlertLib
 
 class ViewController: UIViewController {
     
-    override func viewDidAppear(animated: Bool) {
-        self.view.backgroundColor = UIColor.orangeColor()
+    override func viewDidAppear(_ animated: Bool) {
+        self.view.backgroundColor = UIColor.orange
         showFirstAlert()
         for i in 1...5 {
             showThirdAlert(i)
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     
     }
     
-    func showSecondAlert(useLight: Bool) {
+    func showSecondAlert(_ useLight: Bool) {
     
         let alert = SimpleAlert.makeAlert("Another Alert", message: "You could fill out these boxes.");
         let username = alert.addTextFieldWithPlaceholder("Username", secureEntry: false, changeHandler: { (textField) in
@@ -48,15 +48,15 @@ class ViewController: UIViewController {
             print("Okay pressed, username is: \(username.text!)")
         })
         alert.addButtonWithTitle("Cancel", block: {})
-        alert.theme = useLight ? .Light : .Dark
+        alert.theme = useLight ? .light : .dark
         alert.showInWindow(self.view.window!)
     
     }
     
-    func showThirdAlert(which: Int) {
+    func showThirdAlert(_ which: Int) {
         let alert = SimpleAlert.makeAlert(nil, message: "Many alerts: \(which)");
         alert.addButtonWithTitle("OK", block: {})
-        alert.theme = .Light
+        alert.theme = .light
         alert.showInWindow(self.view.window!)
         
     }
