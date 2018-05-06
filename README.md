@@ -65,7 +65,7 @@ Put this in your Cartfile
 
 and make sure to:
 1. Update using `carthage update --platform iOS`
-1. Add the framework to your copy-frameworks, something like `$(SRCROOT)/Carthage/Build/iOS/SimpleAlertLib.framework`
+1. Add `SimpleAlertLib.framework` to your copy-frameworks input and output files (per [instructions](https://github.com/Carthage/Carthage#getting-started))
 
 
 ## Dependencies!
