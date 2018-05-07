@@ -65,9 +65,8 @@ Put this in your Cartfile
 
 and make sure to follow all the [instructions](https://github.com/Carthage/Carthage#getting-started) for Carthage:
 1. Update using `carthage update --platform iOS`
-1. Add the compiled `.framework` file to `Linked Frameworks and Libraries`
-1. Add `SimpleAlertLib.framework` to your `copy-frameworks` files for both input and output 
-
+1. Add the compiled `.framework` files to `Linked Frameworks and Libraries`: `SimpleAlertLib.framework` and `Cartography.framework`
+1. Add `SimpleAlertLib.framework` and `Cartography.framework` to your `copy-frameworks` files for both input and output 
 
 ## Dependencies!
 
