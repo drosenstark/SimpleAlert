@@ -10,6 +10,8 @@
 		3775F6C61D8B635B0056A88B /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3775F6C51D8B635B0056A88B /* Cartography.framework */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
+		DBBAAB7520A5D14E005A13CB /* SimpleAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBAAB7420A5D14E005A13CB /* SimpleAlertButton.swift */; };
+		DBBAAB7820A5D36E005A13CB /* SimpleAlert+AvoidKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBAAB7720A5D36E005A13CB /* SimpleAlert+AvoidKeyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +20,8 @@
 		C99E90961CB95E14001E70CC /* SimpleAlertLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAlertLib.h; sourceTree = "<group>"; };
 		C99E90981CB95E14001E70CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleAlert.swift; sourceTree = "<group>"; };
+		DBBAAB7420A5D14E005A13CB /* SimpleAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlertButton.swift; sourceTree = "<group>"; };
+		DBBAAB7720A5D36E005A13CB /* SimpleAlert+AvoidKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimpleAlert+AvoidKeyboard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 				C99E90961CB95E14001E70CC /* SimpleAlertLib.h */,
 				C99E90981CB95E14001E70CC /* Info.plist */,
 				C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */,
+				DBBAAB7720A5D36E005A13CB /* SimpleAlert+AvoidKeyboard.swift */,
+				DBBAAB7420A5D14E005A13CB /* SimpleAlertButton.swift */,
 			);
 			path = SimpleAlertLib;
 			sourceTree = "<group>";
@@ -138,7 +144,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBBAAB7520A5D14E005A13CB /* SimpleAlertButton.swift in Sources */,
 				C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */,
+				DBBAAB7820A5D36E005A13CB /* SimpleAlert+AvoidKeyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
