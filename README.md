@@ -63,10 +63,10 @@ Put this in your Cartfile
 
 `github "drosenstark/SimpleAlert" "master"`
 
-and make sure to:
+and make sure to follow all the [instructions](https://github.com/Carthage/Carthage#getting-started) for Carthage:
 1. Update using `carthage update --platform iOS`
-1. Add the framework to your copy-frameworks, something like `$(SRCROOT)/Carthage/Build/iOS/SimpleAlertLib.framework`
-
+1. Add the compiled `.framework` files to `Linked Frameworks and Libraries`: `SimpleAlertLib.framework` and `Cartography.framework`
+1. Add `SimpleAlertLib.framework` and `Cartography.framework` to your `copy-frameworks` files for both input and output 
 
 ## Dependencies!
 
