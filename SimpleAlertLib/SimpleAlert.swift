@@ -19,7 +19,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
     open var doNotAutomaticallyEnableTheseButtons : [UIButton] = []
 
     open var topIcon = UIView()
-    open var modalBackgroundColor = UIColor.yellow //UIColor.black.withAlphaComponent(0.4)
+    open var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
     open var boxBackgroundColor : UIColor!
     open var buttonsBoxBackgroundColor: UIColor!
     open var titleTextColor  : UIColor!
@@ -47,14 +47,12 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
 
     open var showAlertInTopHalf : Bool = false
 
-
     var showWasAnimated = false
     
     var boxVerticalCenterLayoutConstraint: NSLayoutConstraint?
 
     // working around a shared dependency on other stuff in my own libs
     open var doThisToEveryButton: ((UIButton)->())?
-
 
     // MARK: - class methods
     @objc(makeAlertWithTitle:message:)

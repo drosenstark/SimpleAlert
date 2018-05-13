@@ -12,11 +12,11 @@ import SimpleAlertLib
 class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
-        self.view.backgroundColor = UIColor.orange
+        self.view.backgroundColor = UIColor.gray
         showFirstAlert()
-//        for i in 1...5 {
-//            showThirdAlert(i)
-//        }
+        for i in 1...5 {
+            showThirdAlert(i)
+        }
     }
 
     @IBAction func showFirstAlert() {
@@ -31,11 +31,7 @@ class ViewController: UIViewController {
         alert.addButtonWithTitle("Another Alert, Dark") {
             self.showSecondAlert(false)
         }
-        
-        alert.topIcon.backgroundColor = UIColor.cyan
-        alert.show(in: self.view.window!)
-    
-    
+        alert.show(animated: true)
     }
     
     func showSecondAlert(_ useLight: Bool) {
@@ -50,7 +46,6 @@ class ViewController: UIViewController {
         })
         alert.addButtonWithTitle("Cancel", block: {})
         alert.theme = useLight ? .light : .dark
-        alert.topIcon.backgroundColor = UIColor.cyan
         alert.show(in: self.view.window!)
     
     }
@@ -60,7 +55,6 @@ class ViewController: UIViewController {
         alert.addButtonWithTitle("OK", block: {})
         alert.theme = .light
         alert.show(in: self.view.window!)
-        
     }
     
     
