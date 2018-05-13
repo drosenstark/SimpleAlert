@@ -1,9 +1,6 @@
 //
-//  SimpleAlertLib.h
-//  SimpleAlertLib
-//
 //  Created by dr2050 on 4/9/16.
-//  Copyright © 2016 Confusion Studios LLC. All rights reserved.
+//  Copyright © 2016-2018 Confusion Studios LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -14,9 +14,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         self.view.backgroundColor = UIColor.orange
         showFirstAlert()
-        for i in 1...5 {
-            showThirdAlert(i)
-        }
+//        for i in 1...5 {
+//            showThirdAlert(i)
+//        }
     }
 
     @IBAction func showFirstAlert() {
@@ -32,7 +32,8 @@ class ViewController: UIViewController {
             self.showSecondAlert(false)
         }
         
-        alert.showInWindow(self.view.window!)
+        alert.topIcon.backgroundColor = UIColor.cyan
+        alert.show(in: self.view.window!)
     
     
     }
@@ -40,16 +41,17 @@ class ViewController: UIViewController {
     func showSecondAlert(_ useLight: Bool) {
     
         let alert = SimpleAlert.makeAlert("Another Alert", message: "You could fill out these boxes.");
-        let username = alert.addTextFieldWithPlaceholder("Username", secureEntry: false, changeHandler: { (textField) in
+        let username = alert.addTextField(with: "Username", secureEntry: false, changeHandler: { (textField) in
             print("typing!")
         })
-        alert.addTextFieldWithPlaceholder("Pass", secureEntry: true, changeHandler: nil)
+        alert.addTextField(with: "Pass", secureEntry: true, changeHandler: nil)
         alert.addButtonWithTitle("OK", block: {
             print("Okay pressed, username is: \(username.text!)")
         })
         alert.addButtonWithTitle("Cancel", block: {})
         alert.theme = useLight ? .light : .dark
-        alert.showInWindow(self.view.window!)
+        alert.topIcon.backgroundColor = UIColor.cyan
+        alert.show(in: self.view.window!)
     
     }
     
@@ -57,7 +59,7 @@ class ViewController: UIViewController {
         let alert = SimpleAlert.makeAlert(nil, message: "Many alerts: \(which)");
         alert.addButtonWithTitle("OK", block: {})
         alert.theme = .light
-        alert.showInWindow(self.view.window!)
+        alert.show(in: self.view.window!)
         
     }
     
