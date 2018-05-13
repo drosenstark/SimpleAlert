@@ -107,12 +107,12 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
         return retVal
     }
 
-    open func show(animated : Bool = true)  {
+    open func show(onComplete: (()->())?, animated : Bool = true)  {
         guard let window = UIApplication.shared.keyWindow else { return }
-        show(in: window, animated: animated)
+        show(in: window, onComplete: onComplete, animated: animated)
     }
 
-    open func show(in window: UIWindow, animated : Bool = true)  {
+    open func show(in window: UIWindow, onComplete: (()->())?, animated : Bool = true)  {
         // if you're trying to show the same thing twice, we just get out
         if let lastAlert = SimpleAlert.lastAlert, lastAlert.superview != nil {
             if (lastAlert.title == self.title && lastAlert.message == self.message && lastAlert.buttons.count == self.buttons.count) {
@@ -137,6 +137,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
                 self.alpha = 1.0
             }) { [weak self]  (_) in
                 self?.enableButtons()
+                onComplete?()
             }
         }
     }

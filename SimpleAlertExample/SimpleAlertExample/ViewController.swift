@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         alert.addButtonWithTitle("Another Alert, Dark") {
             self.showSecondAlert(false)
         }
-        alert.show(animated: true)
+        alert.show(onComplete: {}, animated: true)
     }
     
     func showSecondAlert(_ useLight: Bool) {
@@ -46,15 +46,16 @@ class ViewController: UIViewController {
         })
         alert.addButtonWithTitle("Cancel", block: {})
         alert.theme = useLight ? .light : .dark
-        alert.show(in: self.view.window!)
-    
+        alert.show(onComplete: {
+            username.becomeFirstResponder()
+        }, animated: true)
     }
     
     func showThirdAlert(_ which: Int) {
         let alert = SimpleAlert.makeAlert(nil, message: "Many alerts: \(which)");
         alert.addButtonWithTitle("OK", block: {})
         alert.theme = .light
-        alert.show(in: self.view.window!)
+        alert.show(onComplete: {}, animated: true)
     }
     
     
