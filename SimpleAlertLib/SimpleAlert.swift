@@ -93,7 +93,7 @@ import Cartography
         retVal.font = UIFont.systemFont(ofSize: textFieldRowHeight / 3.0 + 2.0)
         retVal.delegate = self
         if let handler = changeHandler {
-            NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: retVal, queue: OperationQueue.main) { (notification) in
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: retVal, queue: OperationQueue.main) { (notification) in
                 handler(retVal)
             }
         }
@@ -175,13 +175,13 @@ import Cartography
 
     // MARK: - Keyboard notifications to get UITextFields out of the way
     func addKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
 
     func removeKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     var frameBeforePullup : CGRect?
@@ -192,7 +192,7 @@ import Cartography
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let keyboardFrame : CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
+        guard let keyboardFrame : CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
             return
         }
         guard let textField = self.textFields.last else { return }
@@ -253,15 +253,15 @@ import Cartography
         if let doThis = self.doThisToEveryButton {
             doThis(button)
         }
-        button.setTitle(text, for: UIControlState())
-        button.setTitleColor(self.tintColor, for: UIControlState())
+        button.setTitle(text, for: UIControl.State())
+        button.setTitleColor(self.tintColor, for: UIControl.State())
 
-        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouch(_:)), for: UIControlEvents.touchDown)
-        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControlEvents.touchUpOutside)
+        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouch(_:)), for: UIControl.Event.touchDown)
+        button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControl.Event.touchUpOutside)
         if (dismissAlertOnTouchUp) {
-            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUpInside(_:)), for: UIControlEvents.touchUpInside)
+            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUpInside(_:)), for: UIControl.Event.touchUpInside)
         } else {
-            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControlEvents.touchUpInside)
+            button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControl.Event.touchUpInside)
         }
         buttonsBox.addSubview(button)
         buttons.append(button)
@@ -305,7 +305,7 @@ import Cartography
         let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
         let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
 
-        self.bringSubview(toFront: self.topIcon)
+        self.bringSubviewToFront(self.topIcon)
 
         constrain(self) { view in
             view.size == view.superview!.size
@@ -361,7 +361,7 @@ import Cartography
 
             // [[NSAttributedString alloc] initWithString:@"PlaceHolder Text" attributes:@{NSForegroundColorAttributeName: color}];
             if let placeholderText = textField.placeholder {
-                textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedStringKey.foregroundColor: textFieldPlaceholderColor]);
+                textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: textFieldPlaceholderColor]);
             }
 
             let radiusAndInset = textFieldRowHeight / 8.0
