@@ -1,58 +1,46 @@
-//
-//  AlertReplacement.swift
-//  PlayingWithUI
-//
-//  Created by dr2050 on 4/7/16.
-//  Copyright © 2016 Confusion Studios LLC. All rights reserved.
-//
-
-import UIKit
 import Cartography
-
 
 @objc public enum SimpleAlertTheme : Int { case dark, light }
 
-
-@objc(SimpleAlert)
-open class SimpleAlert: UIView, UITextFieldDelegate {
+@objc open class SimpleAlert: UIView, UITextFieldDelegate {
 
     weak static var lastAlert : SimpleAlert?
 
     let messageLabel = UILabel()
     let titleLabel = UILabel()
-    open let box = UIView()
-    open let buttonsBox = UIView()
-    open var buttons: [UIButton] = []
+    @objc open let box = UIView()
+    @objc open let buttonsBox = UIView()
+    @objc open var buttons: [UIButton] = []
     let textFieldsBox = UIView()
     var textFields: [UITextField] = []
-    open var doNotAutomaticallyEnableTheseButtons : [UIButton] = []
+    @objc open var doNotAutomaticallyEnableTheseButtons : [UIButton] = []
 
-    open var topIcon = UIView(frame: CGRect(x: 0,y: 0,width: 50,height: 50))
-    open var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
-    open var boxBackgroundColor : UIColor!
-    open var buttonsBoxBackgroundColor: UIColor!
-    open var titleTextColor  : UIColor!
-    open var messageTextColor  : UIColor!
-    open var buttonHighlightColor  : UIColor!
-    open var buttonsBoxColor: UIColor!
+    @objc open var topIcon = UIView(frame: CGRect(x: 0,y: 0,width: 50,height: 50))
+    @objc open var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
+    @objc open var boxBackgroundColor : UIColor!
+    @objc open var buttonsBoxBackgroundColor: UIColor!
+    @objc open var titleTextColor  : UIColor!
+    @objc open var messageTextColor  : UIColor!
+    @objc open var buttonHighlightColor  : UIColor!
+    @objc open var buttonsBoxColor: UIColor!
 
-    open var boxWidth = CGFloat(250.0)
-    open var topMargin = CGFloat(20.0)
-    open var bottomMarginIfNecessary = CGFloat(20.0)
-    open var sideMargin = CGFloat(20.0)
-    open var spaceBetweenSections = CGFloat(10.0)
+    @objc open var boxWidth = CGFloat(250.0)
+    @objc open var topMargin = CGFloat(20.0)
+    @objc open var bottomMarginIfNecessary = CGFloat(20.0)
+    @objc open var sideMargin = CGFloat(20.0)
+    @objc open var spaceBetweenSections = CGFloat(10.0)
 
-    open var textFieldTextColor = UIColor.black
-    open var textFieldPlaceholderColor = UIColor.darkGray
-    open var textFieldBackgroundColor = UIColor.white
-    open var textFieldRowHeight = CGFloat(30.0)
-    open var textFieldRowVerticalSpace = CGFloat(1.0)
-    open var textFieldInset = CGFloat(10.0)
+    @objc open var textFieldTextColor = UIColor.black
+    @objc open var textFieldPlaceholderColor = UIColor.darkGray
+    @objc open var textFieldBackgroundColor = UIColor.white
+    @objc open var textFieldRowHeight = CGFloat(30.0)
+    @objc open var textFieldRowVerticalSpace = CGFloat(1.0)
+    @objc open var textFieldInset = CGFloat(10.0)
 
-    open var buttonInset = CGFloat(0.0)
+    @objc open var buttonInset = CGFloat(0.0)
     let titleHeight = CGFloat(30.0)
-    open var buttonRowHeight = CGFloat(40.0)
-    open var buttonRowVerticalSpace = CGFloat(1.0)
+    @objc open var buttonRowHeight = CGFloat(40.0)
+    @objc open var buttonRowVerticalSpace = CGFloat(1.0)
 
     @objc open var showAlertInTopHalf : Bool = false
 
@@ -60,7 +48,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
     var showWasAnimated = false
 
     // working around a shared dependency on other stuff in my own libs
-    open var doThisToEveryButton: ((UIButton)->())?
+    @objc open var doThisToEveryButton: ((UIButton)->())?
 
 
     // MARK: - class methods
@@ -73,13 +61,13 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
         return retVal
     }
 
-    open var title : String? {
+    @objc open var title : String? {
         didSet {
             titleLabel.text = title
         }
     }
 
-    open var message : String? {
+    @objc open var message : String? {
         didSet {
             messageLabel.text = message
         }
@@ -87,17 +75,17 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
 
     // MARK: - Add Methods
     @discardableResult
-    open func addButtonWithTitle(_ title: String, block: (()->())?) -> UIButton {
+    @objc open func addButtonWithTitle(_ title: String, block: (()->())?) -> UIButton {
         return addButtonWithTitle(title, dismissAlertOnTouchUp: true, block: block)
     }
 
     @discardableResult
-    open func addButtonWithTitle(_ title: String, dismissAlertOnTouchUp: Bool, block: (()->())?) -> UIButton {
+    @objc open func addButtonWithTitle(_ title: String, dismissAlertOnTouchUp: Bool, block: (()->())?) -> UIButton {
         return setupButtonWithText(title, dismissAlertOnTouchUp: dismissAlertOnTouchUp, handler: block)
     }
 
     @discardableResult
-    open func addTextFieldWithPlaceholder(_ placeholder:String, secureEntry: Bool, changeHandler: ((UITextField)->())?) -> UITextField {
+    @objc open func addTextFieldWithPlaceholder(_ placeholder:String, secureEntry: Bool, changeHandler: ((UITextField)->())?) -> UITextField {
         let retVal = UITextField()
         retVal.backgroundColor = UIColor.white
         retVal.placeholder = placeholder
@@ -118,7 +106,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
     }
 
 
-    open func showInWindow(_ window: UIWindow, animated : Bool = true)  {
+    @objc open func showInWindow(_ window: UIWindow, animated : Bool = true)  {
 
         // if you're trying to show the same thing twice, we just get out
         if let lastAlert = SimpleAlert.lastAlert, lastAlert.superview != nil {
@@ -162,7 +150,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
         removeKeyboardNotifications()
     }
 
-    open func dismiss() {
+    @objc open func dismiss() {
         removeKeyboardNotifications()
         if (!showWasAnimated) {
             self.removeFromSuperview()
@@ -176,12 +164,12 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
     }
 
     // MARK: - UITextFieldDelegate Methods
-    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @objc open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
     }
 
-    open func textFieldDidBeginEditing(_ textField: UITextField) {
+    @objc open func textFieldDidBeginEditing(_ textField: UITextField) {
     }
 
 
@@ -233,7 +221,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
 
     // MARK: - Theme
     // the initial value is for Objective-C to work
-    open var theme : SimpleAlertTheme = .dark {
+    @objc open var theme : SimpleAlertTheme = .dark {
         didSet {
             if (theme == .dark) {
                 boxBackgroundColor = UIColor.black
@@ -284,7 +272,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
     var boxConstraints : ConstraintGroup!
 
     // public for being overridden
-    open func prepSubviews() {
+    @objc open func prepSubviews() {
         addSubview(topIcon)
         box.layer.cornerRadius = 10.0
         backgroundColor = modalBackgroundColor
@@ -423,7 +411,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
         self.dismiss()
     }
 
-    open override func layoutSubviews() {
+    @objc open override func layoutSubviews() {
         super.layoutSubviews()
         layoutTopIcon()
     }
