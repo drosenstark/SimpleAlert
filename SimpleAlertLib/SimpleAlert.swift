@@ -147,7 +147,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
         showWasAnimated = animated
     }
 
-    open func enableButtons() {
+    @objc open func enableButtons() {
         addKeyboardNotifications()
         for button in self.buttons {
             if (!doNotAutomaticallyEnableTheseButtons.contains(button)) {
@@ -200,7 +200,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
     var framePulledUp : CGRect?
     var bottomOfTextNeedsPullUpBy : CGFloat?
 
-    open func keyboardDidShow(_ notification: Notification) {
+    @objc open func keyboardDidShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
             return
         }
@@ -224,7 +224,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
         return
     }
 
-    open func keyboardDidHide(_ notification: Notification) {
+    @objc open func keyboardDidHide(_ notification: Notification) {
         guard let frameBeforePullup = frameBeforePullup else { return }
         box.frame = frameBeforePullup
         layoutTopIcon()
@@ -373,7 +373,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
 
             // [[NSAttributedString alloc] initWithString:@"PlaceHolder Text" attributes:@{NSForegroundColorAttributeName: color}];
             if let placeholderText = textField.placeholder {
-                textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor]);
+                textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedStringKey.foregroundColor: textFieldPlaceholderColor]);
             }
 
             let radiusAndInset = textFieldRowHeight / 8.0
@@ -411,15 +411,15 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
 
 
     // MARK: - Each button calls these for highlighting background
-    func handleButtonTouch(_ button: UIButton) {
+    @objc func handleButtonTouch(_ button: UIButton) {
         button.backgroundColor = buttonHighlightColor
     }
 
-    func handleButtonTouchUp(_ button: UIButton) {
+    @objc func handleButtonTouchUp(_ button: UIButton) {
         button.backgroundColor = buttonsBoxBackgroundColor
     }
 
-    func handleButtonTouchUpInside(_ button: UIButton) {
+    @objc func handleButtonTouchUpInside(_ button: UIButton) {
         self.dismiss()
     }
 
@@ -464,7 +464,7 @@ class ButtonSub : UIButton {
     }
 
 
-    func callHandler() {
+    @objc func callHandler() {
         handler?()
     }
 
