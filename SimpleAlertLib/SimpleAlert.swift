@@ -54,7 +54,7 @@ open class SimpleAlert: UIView, UITextFieldDelegate {
     open var buttonRowHeight = CGFloat(40.0)
     open var buttonRowVerticalSpace = CGFloat(1.0)
 
-    open var showAlertInTopHalf : Bool = false
+    @objc open var showAlertInTopHalf : Bool = false
 
 
     var showWasAnimated = false
