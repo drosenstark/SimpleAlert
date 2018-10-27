@@ -8,8 +8,8 @@ import Cartography
 
     let messageLabel = UILabel()
     let titleLabel = UILabel()
-    @objc open let box = UIView()
-    @objc open let buttonsBox = UIView()
+    @objc public let box = UIView()
+    @objc public let buttonsBox = UIView()
     @objc open var buttons: [UIButton] = []
     let textFieldsBox = UIView()
     var textFields: [UITextField] = []
