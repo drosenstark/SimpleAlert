@@ -6,15 +6,14 @@
 //  Copyright © 2016 Confusion Studios LLC. All rights reserved.
 //
 
-import UIKit
 import SimpleAlertLib
+import UIKit
 
 class ViewController: UIViewController {
-    
     override func viewDidAppear(_ animated: Bool) {
-        self.view.backgroundColor = UIColor.orange
+        view.backgroundColor = UIColor.orange
         showFirstAlert()
-        for i in 1...5 {
+        for i in 1 ... 5 {
             showThirdAlert(i)
         }
     }
@@ -31,16 +30,13 @@ class ViewController: UIViewController {
         alert.addButtonWithTitle("Another Alert, Dark") {
             self.showSecondAlert(false)
         }
-        
-        alert.showInWindow(self.view.window!)
-    
-    
+
+        alert.showInWindow(view.window!)
     }
-    
+
     func showSecondAlert(_ useLight: Bool) {
-    
-        let alert = SimpleAlert.makeAlert("Another Alert", message: "You could fill out these boxes.");
-        let username = alert.addTextFieldWithPlaceholder("Username", secureEntry: false, changeHandler: { (textField) in
+        let alert = SimpleAlert.makeAlert("Another Alert", message: "You could fill out these boxes.")
+        let username = alert.addTextFieldWithPlaceholder("Username", secureEntry: false, changeHandler: { textField in
             print("typing!")
         })
         alert.addTextFieldWithPlaceholder("Pass", secureEntry: true, changeHandler: nil)
@@ -49,18 +45,13 @@ class ViewController: UIViewController {
         })
         alert.addButtonWithTitle("Cancel", block: {})
         alert.theme = useLight ? .light : .dark
-        alert.showInWindow(self.view.window!)
-    
+        alert.showInWindow(view.window!)
     }
-    
+
     func showThirdAlert(_ which: Int) {
-        let alert = SimpleAlert.makeAlert(nil, message: "Many alerts: \(which)");
+        let alert = SimpleAlert.makeAlert(nil, message: "Many alerts: \(which)")
         alert.addButtonWithTitle("OK", block: {})
         alert.theme = .light
-        alert.showInWindow(self.view.window!)
-        
+        alert.showInWindow(view.window!)
     }
-    
-    
 }
-
