@@ -108,11 +108,11 @@
 			};
 			buildConfigurationList = C99E908D1CB95E14001E70CC /* Build configuration list for PBXProject "SimpleAlertLib" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = C99E90891CB95E14001E70CC;
 			productRefGroup = C99E90941CB95E14001E70CC /* Products */;
