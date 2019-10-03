@@ -149,7 +149,9 @@ import Cartography
     @objc open func dismiss() {
         removeKeyboardNotifications()
         if !showWasAnimated {
-            removeFromSuperview()
+            DispatchQueue.main.async {
+                self.removeFromSuperview()
+            }
         } else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.alpha = 0.0
