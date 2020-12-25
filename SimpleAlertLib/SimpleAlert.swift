@@ -106,7 +106,7 @@ import Cartography
     @objc open func showInWindow(_ window: UIWindow, animated: Bool = true) {
         // if you're trying to show the same thing twice, we just get out
         if let lastAlert = SimpleAlert.lastAlert, lastAlert.superview != nil {
-            if lastAlert.title == title && lastAlert.message == message && lastAlert.buttons.count == buttons.count {
+            if lastAlert.title == title, lastAlert.message == message, lastAlert.buttons.count == buttons.count {
                 return
             } else {
                 modalBackgroundColor = UIColor.clear
