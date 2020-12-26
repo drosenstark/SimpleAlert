@@ -3,16 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9954E6A4DA78292BE3830A6B /* Pods_SimpleAlertLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8456419961FA52ECDA2ECA8 /* Pods_SimpleAlertLib.framework */; };
+		9954E6A4DA78292BE3830A6B /* Pods_SimpleAlertLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8456419961FA52ECDA2ECA8 /* Pods_SimpleAlertLib.framework */; platformFilter = ios; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37489B2F25978FD2006BC827 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		454C9B50F8C1CD4E80FE955C /* Pods-SimpleAlertLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.release.xcconfig"; path = "Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.release.xcconfig"; sourceTree = "<group>"; };
 		76CEE7773AE4225D90D56C57 /* Pods-SimpleAlertLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.debug.xcconfig"; path = "Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.debug.xcconfig"; sourceTree = "<group>"; };
 		C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,6 +38,7 @@
 		A8C8084232DC20BF19CD1E8E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37489B2F25978FD2006BC827 /* Cartography.framework */,
 				E8456419961FA52ECDA2ECA8 /* Pods_SimpleAlertLib.framework */,
 			);
 			name = Frameworks;
@@ -118,7 +120,7 @@
 		C99E908A1CB95E14001E70CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Confusion Studios LLC";
 				TargetAttributes = {
 					C99E90921CB95E14001E70CC = {
@@ -324,7 +326,11 @@
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -354,7 +360,11 @@
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
