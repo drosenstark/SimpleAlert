@@ -119,7 +119,6 @@
 				C99E90661CB95D26001E70CC /* Frameworks */,
 				C99E90671CB95D26001E70CC /* Resources */,
 				C99E90881CB95D5F001E70CC /* Embed Frameworks */,
-				C9AF79FE1CC81392005B266C /* Run Script (Carthage: You must run `carthage update --platform iOS` first  */,
 				C9AF7A011CC813B9005B266C /* CopyFiles */,
 			);
 			buildRules = (
@@ -152,6 +151,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -193,24 +193,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C9AF79FE1CC81392005B266C /* Run Script (Carthage: You must run `carthage update --platform iOS` first  */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/../Carthage/build/iOS/Cartography.framework",
-			);
-			name = "Run Script (Carthage: You must run `carthage update --platform iOS` first ";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C99E90651CB95D26001E70CC /* Sources */ = {
