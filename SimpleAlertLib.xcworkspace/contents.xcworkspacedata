@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:SimpleAlertExample/SimpleAlertExample.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:SimpleAlertLib.xcodeproj">
    </FileRef>
    <FileRef
