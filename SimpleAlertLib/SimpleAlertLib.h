@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double SimpleAlertLibVersionNumber;
 FOUNDATION_EXPORT const unsigned char SimpleAlertLibVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SimpleAlertLib/PublicHeader.h>
-
-
