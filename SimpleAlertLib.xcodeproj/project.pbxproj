@@ -14,8 +14,8 @@
 
 /* Begin PBXFileReference section */
 		37489B2F25978FD2006BC827 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		454C9B50F8C1CD4E80FE955C /* Pods-SimpleAlertLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.release.xcconfig"; path = "../../../Pods/Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.release.xcconfig"; sourceTree = "<group>"; };
-		76CEE7773AE4225D90D56C57 /* Pods-SimpleAlertLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.debug.xcconfig"; path = "../../../Pods/Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.debug.xcconfig"; sourceTree = "<group>"; };
+		454C9B50F8C1CD4E80FE955C /* Pods-SimpleAlertLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.release.xcconfig"; path = "Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.release.xcconfig"; sourceTree = "<group>"; };
+		76CEE7773AE4225D90D56C57 /* Pods-SimpleAlertLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.debug.xcconfig"; path = "Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.debug.xcconfig"; sourceTree = "<group>"; };
 		C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90961CB95E14001E70CC /* SimpleAlertLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAlertLib.h; sourceTree = "<group>"; };
 		C99E90981CB95E14001E70CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
