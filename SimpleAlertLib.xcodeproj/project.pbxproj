@@ -3,24 +3,82 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9954E6A4DA78292BE3830A6B /* Pods_SimpleAlertLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8456419961FA52ECDA2ECA8 /* Pods_SimpleAlertLib.framework */; platformFilter = ios; };
+		37BE21DB28399300004D0305 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BE21D0283992DA004D0305 /* Cartography.framework */; };
+		37BE21DC28399300004D0305 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 37BE21D0283992DA004D0305 /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		37BE21CF283992DA004D0305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37BE21C6283992DA004D0305 /* Cartography.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 54C96A11195063CD000CDD27;
+			remoteInfo = "Cartography-iOS";
+		};
+		37BE21D1283992DA004D0305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37BE21C6283992DA004D0305 /* Cartography.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 54C96A1C195063CD000CDD27;
+			remoteInfo = "Cartography-iOS-Tests";
+		};
+		37BE21D3283992DA004D0305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37BE21C6283992DA004D0305 /* Cartography.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 54F6A838195C20C100313D24;
+			remoteInfo = "Cartography-Mac";
+		};
+		37BE21D5283992DA004D0305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37BE21C6283992DA004D0305 /* Cartography.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 54F6A842195C20C200313D24;
+			remoteInfo = "Cartography-Mac-Tests";
+		};
+		37BE21D7283992DA004D0305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37BE21C6283992DA004D0305 /* Cartography.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 632F090A1BF1E7AA002431A3;
+			remoteInfo = "Cartography-tvOS";
+		};
+		37BE21D9283992DA004D0305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37BE21C6283992DA004D0305 /* Cartography.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 632F09221BF1E7FC002431A3;
+			remoteInfo = "Cartography-tvOS-tests";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		37BE21DD28399300004D0305 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				37BE21DC28399300004D0305 /* Cartography.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		37489B2F25978FD2006BC827 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		454C9B50F8C1CD4E80FE955C /* Pods-SimpleAlertLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.release.xcconfig"; path = "../../../Pods/Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.release.xcconfig"; sourceTree = "<group>"; };
-		76CEE7773AE4225D90D56C57 /* Pods-SimpleAlertLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleAlertLib.debug.xcconfig"; path = "../../../Pods/Target Support Files/Pods-SimpleAlertLib/Pods-SimpleAlertLib.debug.xcconfig"; sourceTree = "<group>"; };
+		37BE21C6283992DA004D0305 /* Cartography.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Cartography.xcodeproj; path = Cartography/Cartography.xcodeproj; sourceTree = "<group>"; };
 		C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90961CB95E14001E70CC /* SimpleAlertLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAlertLib.h; sourceTree = "<group>"; };
 		C99E90981CB95E14001E70CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleAlert.swift; sourceTree = "<group>"; };
-		E8456419961FA52ECDA2ECA8 /* Pods_SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,18 +86,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9954E6A4DA78292BE3830A6B /* Pods_SimpleAlertLib.framework in Frameworks */,
+				37BE21DB28399300004D0305 /* Cartography.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37BE21C7283992DA004D0305 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37BE21D0283992DA004D0305 /* Cartography.framework */,
+				37BE21D2283992DA004D0305 /* Cartography-iOS-Tests.xctest */,
+				37BE21D4283992DA004D0305 /* Cartography.framework */,
+				37BE21D6283992DA004D0305 /* Cartography-Mac-Tests.xctest */,
+				37BE21D8283992DA004D0305 /* Cartography.framework */,
+				37BE21DA283992DA004D0305 /* Cartography-tvOS-tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A8C8084232DC20BF19CD1E8E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				37489B2F25978FD2006BC827 /* Cartography.framework */,
-				E8456419961FA52ECDA2ECA8 /* Pods_SimpleAlertLib.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -47,9 +117,9 @@
 		C99E90891CB95E14001E70CC = {
 			isa = PBXGroup;
 			children = (
+				37BE21C6283992DA004D0305 /* Cartography.xcodeproj */,
 				C99E90951CB95E14001E70CC /* SimpleAlertLib */,
 				C99E90941CB95E14001E70CC /* Products */,
-				E2C92CA7CD9A4FEFCE5531A0 /* Pods */,
 				A8C8084232DC20BF19CD1E8E /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -72,15 +142,6 @@
 			path = SimpleAlertLib;
 			sourceTree = "<group>";
 		};
-		E2C92CA7CD9A4FEFCE5531A0 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				76CEE7773AE4225D90D56C57 /* Pods-SimpleAlertLib.debug.xcconfig */,
-				454C9B50F8C1CD4E80FE955C /* Pods-SimpleAlertLib.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -99,11 +160,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C99E909B1CB95E14001E70CC /* Build configuration list for PBXNativeTarget "SimpleAlertLib" */;
 			buildPhases = (
-				B39C95139C2613AE954F02D4 /* [CP] Check Pods Manifest.lock */,
 				C99E908F1CB95E14001E70CC /* Frameworks */,
 				C99E908E1CB95E14001E70CC /* Sources */,
 				C99E90901CB95E14001E70CC /* Headers */,
 				C99E90911CB95E14001E70CC /* Resources */,
+				37BE21DD28399300004D0305 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -140,12 +201,63 @@
 			mainGroup = C99E90891CB95E14001E70CC;
 			productRefGroup = C99E90941CB95E14001E70CC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 37BE21C7283992DA004D0305 /* Products */;
+					ProjectRef = 37BE21C6283992DA004D0305 /* Cartography.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C99E90921CB95E14001E70CC /* SimpleAlertLib */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		37BE21D0283992DA004D0305 /* Cartography.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Cartography.framework;
+			remoteRef = 37BE21CF283992DA004D0305 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37BE21D2283992DA004D0305 /* Cartography-iOS-Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Cartography-iOS-Tests.xctest";
+			remoteRef = 37BE21D1283992DA004D0305 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37BE21D4283992DA004D0305 /* Cartography.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Cartography.framework;
+			remoteRef = 37BE21D3283992DA004D0305 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37BE21D6283992DA004D0305 /* Cartography-Mac-Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Cartography-Mac-Tests.xctest";
+			remoteRef = 37BE21D5283992DA004D0305 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37BE21D8283992DA004D0305 /* Cartography.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Cartography.framework;
+			remoteRef = 37BE21D7283992DA004D0305 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		37BE21DA283992DA004D0305 /* Cartography-tvOS-tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Cartography-tvOS-tests.xctest";
+			remoteRef = 37BE21D9283992DA004D0305 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C99E90911CB95E14001E70CC /* Resources */ = {
@@ -156,31 +268,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B39C95139C2613AE954F02D4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SimpleAlertLib-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C99E908E1CB95E14001E70CC /* Sources */ = {
@@ -308,7 +395,6 @@
 		};
 		C99E909C1CB95E14001E70CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 76CEE7773AE4225D90D56C57 /* Pods-SimpleAlertLib.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -328,11 +414,7 @@
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -345,7 +427,6 @@
 		};
 		C99E909D1CB95E14001E70CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 454C9B50F8C1CD4E80FE955C /* Pods-SimpleAlertLib.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -364,11 +445,7 @@
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
