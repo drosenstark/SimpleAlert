@@ -146,8 +146,8 @@
 			buildConfigurationList = C99E909B1CB95E14001E70CC /* Build configuration list for PBXNativeTarget "SimpleAlertLib" */;
 			buildPhases = (
 				C99E908F1CB95E14001E70CC /* Frameworks */,
-				C99E908E1CB95E14001E70CC /* Sources */,
 				C99E90901CB95E14001E70CC /* Headers */,
+				C99E908E1CB95E14001E70CC /* Sources */,
 				C99E90911CB95E14001E70CC /* Resources */,
 			);
 			buildRules = (
