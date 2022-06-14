@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3758C039283B2E37001756AD /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BE21D0283992DA004D0305 /* Cartography.framework */; };
+		37C50E912857720D00B54E22 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BE21D0283992DA004D0305 /* Cartography.framework */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
@@ -71,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3758C039283B2E37001756AD /* Cartography.framework in Frameworks */,
+				37C50E912857720D00B54E22 /* Cartography.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
