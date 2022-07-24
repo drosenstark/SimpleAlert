@@ -1,4 +1,0 @@
-[submodule "Cartography"]
-	path = Cartography
-	url = https://github.com/drosenstark/Cartography4MDP2.git
-	branch = 2022-05-30-midi-designer-no-pods-m1-build
