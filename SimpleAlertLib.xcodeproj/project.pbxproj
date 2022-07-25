@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37383E7E288B6A3600DE3B97 /* Cartography in Frameworks */ = {isa = PBXBuildFile; productRef = 37383E7D288B6A3600DE3B97 /* Cartography */; };
+		37410190288E15F50001DB6B /* Cartography in Frameworks */ = {isa = PBXBuildFile; productRef = 3741018F288E15F50001DB6B /* Cartography */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
@@ -25,7 +25,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37383E7E288B6A3600DE3B97 /* Cartography in Frameworks */,
+				37410190288E15F50001DB6B /* Cartography in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 			);
 			name = SimpleAlertLib;
 			packageProductDependencies = (
-				37383E7D288B6A3600DE3B97 /* Cartography */,
+				3741018F288E15F50001DB6B /* Cartography */,
 			);
 			productName = SimpleAlertLib;
 			productReference = C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */;
@@ -127,7 +127,8 @@
 			);
 			mainGroup = C99E90891CB95E14001E70CC;
 			packageReferences = (
-				37383E7C288B6A3600DE3B97 /* XCRemoteSwiftPackageReference "Cartography" */,
+				3741018B288E12700001DB6B /* XCRemoteSwiftPackageReference "Cartography" */,
+				3741018E288E15F50001DB6B /* XCRemoteSwiftPackageReference "Cartography" */,
 			);
 			productRefGroup = C99E90941CB95E14001E70CC /* Products */;
 			projectDirPath = "";
@@ -210,7 +211,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -283,10 +284,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimpleAlertLib",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
@@ -297,7 +299,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -318,10 +320,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimpleAlertLib",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
@@ -365,7 +367,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		37383E7C288B6A3600DE3B97 /* XCRemoteSwiftPackageReference "Cartography" */ = {
+		3741018B288E12700001DB6B /* XCRemoteSwiftPackageReference "Cartography" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/robb/Cartography";
+			requirement = {
+				kind = exactVersion;
+				version = 4.0.0;
+			};
+		};
+		3741018E288E15F50001DB6B /* XCRemoteSwiftPackageReference "Cartography" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/robb/Cartography";
 			requirement = {
@@ -376,9 +386,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		37383E7D288B6A3600DE3B97 /* Cartography */ = {
+		3741018F288E15F50001DB6B /* Cartography */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 37383E7C288B6A3600DE3B97 /* XCRemoteSwiftPackageReference "Cartography" */;
+			package = 3741018B288E12700001DB6B /* XCRemoteSwiftPackageReference "Cartography" */;
 			productName = Cartography;
 		};
 /* End XCSwiftPackageProductDependency section */
