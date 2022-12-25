@@ -1,3 +1,5 @@
+// (c) Confusion Studios LLC and affiliates. Confidential and proprietary.
+
 import Cartography
 
 @objc public enum SimpleAlertTheme: Int { case dark, light }
@@ -193,7 +195,7 @@ import Cartography
         guard let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
             return
         }
-        guard let textField = self.textFields.last else { return }
+        guard let textField = textFields.last else { return }
         var textFieldFrame = textField.window!.convert(textField.frame, from: textField.superview)
         textFieldFrame.size.height += 10
         if keyboardFrame.intersects(textFieldFrame) {
@@ -207,7 +209,6 @@ import Cartography
             box.frame = frame
             layoutTopIcon()
         }
-        return
     }
 
     @objc open func keyboardDidHide(_ notification: Notification) {
@@ -245,7 +246,7 @@ import Cartography
 
     func setupButtonWithText(_ text: String, dismissAlertOnTouchUp: Bool = true, handler: (() -> Void)?) -> UIButton {
         let button = ButtonSub.makeButtonSub(handler)
-        if let doThis = self.doThisToEveryButton {
+        if let doThis = doThisToEveryButton {
             doThis(button)
         }
         button.setTitle(text, for: UIControl.State())
@@ -400,7 +401,7 @@ import Cartography
         dismiss()
     }
 
-    @objc open override func layoutSubviews() {
+    @objc override open func layoutSubviews() {
         super.layoutSubviews()
         layoutTopIcon()
     }
