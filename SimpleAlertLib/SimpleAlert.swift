@@ -309,7 +309,7 @@ import Cartography
 
         let titleHeight = title == nil ? 0.0 : self.titleHeight
 
-        boxConstraints = constrain(box) { box in
+        constrain(box) { box in
             box.width == boxWidth
             if showAlertInTopHalf {
                 box.centerY == box.superview!.centerY * 0.50
