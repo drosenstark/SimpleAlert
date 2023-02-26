@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3722B59329ABB89A00CD4111 /* UIView+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B59229ABB89A00CD4111 /* UIView+Util.swift */; };
 		37410190288E15F50001DB6B /* Cartography in Frameworks */ = {isa = PBXBuildFile; productRef = 3741018F288E15F50001DB6B /* Cartography */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3722B59229ABB89A00CD4111 /* UIView+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Util.swift"; sourceTree = "<group>"; };
 		37489B2F25978FD2006BC827 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90961CB95E14001E70CC /* SimpleAlertLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAlertLib.h; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				C99E90961CB95E14001E70CC /* SimpleAlertLib.h */,
 				C99E90981CB95E14001E70CC /* Info.plist */,
 				C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */,
+				3722B59229ABB89A00CD4111 /* UIView+Util.swift */,
 			);
 			path = SimpleAlertLib;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3722B59329ABB89A00CD4111 /* UIView+Util.swift in Sources */,
 				C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -265,8 +265,6 @@ import Cartography
         return button
     }
 
-    var boxConstraints: ConstraintGroup!
-
     // public for being overridden
     @objc open func prepSubviews() {
         addSubview(topIcon)
@@ -303,21 +301,27 @@ import Cartography
 
         bringSubviewToFront(topIcon)
 
-        constrain(self) { view in
-            view.size == view.superview!.size
+        if let superview = superview {
+            constrainSize(to: superview)
         }
-
+        
         let titleHeight = title == nil ? 0.0 : self.titleHeight
 
-        constrain(box) { box in
-            box.width == boxWidth
-            if showAlertInTopHalf {
-                box.centerY == box.superview!.centerY * 0.50
-                box.centerX == box.superview!.centerX
-            } else {
-                box.center == box.superview!.center
-            }
+        if let superview = box.superview {
+            box.widthAnchor.constraint(equalToConstant: boxWidth).isActive = true
+
+            let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
+            box.constrainCenter(to: superview, multiplierY: multiplerY)
         }
+//        constrain(box) { box in
+//            box.width == boxWidth
+//            if showAlertInTopHalf {
+//                box.centerY == box.superview!.centerY * 0.50
+//                box.centerX == box.superview!.centerX
+//            } else {
+//                box.center == box.superview!.center
+//            }
+//        }
 
         constrain(box, titleLabel, messageLabel, buttonsBox, textFieldsBox) { box, titleLabel, messageLabel, buttonsBox, textFieldsBox in
             titleLabel.width == box.width - sideMargin * 2
