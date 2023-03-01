@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3722B59329ABB89A00CD4111 /* UIView+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B59229ABB89A00CD4111 /* UIView+Util.swift */; };
-		37410190288E15F50001DB6B /* Cartography in Frameworks */ = {isa = PBXBuildFile; productRef = 3741018F288E15F50001DB6B /* Cartography */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
@@ -27,7 +26,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37410190288E15F50001DB6B /* Cartography in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +97,6 @@
 			);
 			name = SimpleAlertLib;
 			packageProductDependencies = (
-				3741018F288E15F50001DB6B /* Cartography */,
 			);
 			productName = SimpleAlertLib;
 			productReference = C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */;
@@ -130,8 +127,6 @@
 			);
 			mainGroup = C99E90891CB95E14001E70CC;
 			packageReferences = (
-				3741018B288E12700001DB6B /* XCRemoteSwiftPackageReference "Cartography" */,
-				3741018E288E15F50001DB6B /* XCRemoteSwiftPackageReference "Cartography" */,
 			);
 			productRefGroup = C99E90941CB95E14001E70CC /* Products */;
 			projectDirPath = "";
@@ -298,11 +293,7 @@
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -333,11 +324,7 @@
 				INFOPLIST_FILE = SimpleAlertLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -369,33 +356,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		3741018B288E12700001DB6B /* XCRemoteSwiftPackageReference "Cartography" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/robb/Cartography";
-			requirement = {
-				kind = exactVersion;
-				version = 4.0.0;
-			};
-		};
-		3741018E288E15F50001DB6B /* XCRemoteSwiftPackageReference "Cartography" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/robb/Cartography";
-			requirement = {
-				kind = exactVersion;
-				version = 4.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		3741018F288E15F50001DB6B /* Cartography */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3741018B288E12700001DB6B /* XCRemoteSwiftPackageReference "Cartography" */;
-			productName = Cartography;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C99E908A1CB95E14001E70CC /* Project object */;
 }

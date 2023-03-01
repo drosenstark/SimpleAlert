@@ -1,7 +1,5 @@
 // (c) Confusion Studios LLC and affiliates. Confidential and proprietary.
 
-import Cartography
-
 @objc public enum SimpleAlertTheme: Int { case dark, light }
 
 @objc open class SimpleAlert: UIView, UITextFieldDelegate {
