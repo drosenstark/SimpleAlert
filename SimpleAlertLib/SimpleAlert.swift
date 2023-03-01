@@ -351,7 +351,6 @@ import Cartography
             textField.backgroundColor = textFieldBackgroundColor
             textField.textColor = textFieldTextColor
 
-            // [[NSAttributedString alloc] initWithString:@"PlaceHolder Text" attributes:@{NSForegroundColorAttributeName: color}];
             if let placeholderText = textField.placeholder {
                 textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: textFieldPlaceholderColor])
             }
@@ -361,14 +360,13 @@ import Cartography
             let leftBox = UIView(frame: CGRect(x: 0, y: 0, width: radiusAndInset * 2.0, height: 1))
             textField.leftView = leftBox
             textField.leftViewMode = .always
+            textField.translatesAutoresizingMaskIntoConstraints = false
 
             let top = CGFloat(CGFloat(index) * textFieldRowTotalHeight)
-            constrain(textFieldsBox, textField) { textFieldsBox, textField in
-                textField.height == textFieldRowHeight
-                textField.width == textFieldsBox.width - textFieldInset
-                textField.centerX == textFieldsBox.centerX
-                textField.top == textFieldsBox.top + top + textFieldRowVerticalSpace
-            }
+            textField.heightAnchor.constraint(equalToConstant: textFieldRowHeight).isActive = true
+            textField.widthAnchor.constraint(equalTo: textFieldsBox.widthAnchor, constant: -textFieldInset).isActive = true
+            textField.centerXAnchor.constraint(equalTo: textFieldsBox.centerXAnchor, constant: 0).isActive = true
+            textField.topAnchor.constraint(equalTo: textFieldsBox.topAnchor, constant: top + textFieldRowVerticalSpace).isActive = true
         }
 
         for (index, button) in buttons.enumerated() {
@@ -376,12 +374,14 @@ import Cartography
             handleButtonTouchUp(button)
 
             let top = CGFloat(CGFloat(index) * buttonRowTotalHeight)
-            constrain(buttonsBox, button) { buttonsBox, button in
-                button.height == buttonRowHeight
-                button.width == buttonsBox.width - buttonInset
-                button.centerX == buttonsBox.centerX
-                button.top == buttonsBox.top + buttonRowVerticalSpace + top
-            }
+            button.heightAnchor.constraint(equalToConstant: buttonRowHeight).isActive = true
+
+            button.translatesAutoresizingMaskIntoConstraints = false
+
+            button.heightAnchor.constraint(equalToConstant: buttonRowHeight).isActive = true
+            button.widthAnchor.constraint(equalTo: buttonsBox.widthAnchor, constant: -buttonInset).isActive = true
+            button.centerXAnchor.constraint(equalTo: buttonsBox.centerXAnchor, constant: 0).isActive = true
+            button.topAnchor.constraint(equalTo: buttonsBox.topAnchor, constant: buttonRowVerticalSpace + top).isActive = true
         }
     }
 
