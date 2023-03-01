@@ -2,7 +2,7 @@
 
 import UIKit
 
-extension UIView {
+public extension UIView {
     func constrainCenterTo(view: UIView?, multiplierY: CGFloat = 1.0, multiplierX: CGFloat = 1.0) {
         guard let view else { return }
 
