@@ -338,9 +338,13 @@ import Cartography
         buttonsBox.heightAnchor.constraint(equalToConstant: buttonsBoxHeight).isActive = true
         buttonsBox.topAnchor.constraint(equalTo: textFieldsBox.bottomAnchor, constant: spaceAfterTextFields).isActive = true
         
-        var boxHeightWithoutMessage = topMargin + titleHeight + 2 * spaceBetweenSections + spaceAfterTextFields
-        boxHeightWithoutMessage += textFieldsBoxHeight // (textFieldsBoxHeight > 0) ? buttonsBoxHeight + buttonInset * 0.5 : bottomMarginIfNecessary
-        boxHeightWithoutMessage += (buttonsBoxHeight > 0) ? buttonsBoxHeight : bottomMarginIfNecessary
+        let boxHeightWithoutMessage = {
+            var result = topMargin + titleHeight + 2 * self.spaceBetweenSections + spaceAfterTextFields
+            result += textFieldsBoxHeight
+            result += (buttonsBoxHeight > 0) ? buttonsBoxHeight : self.bottomMarginIfNecessary
+            return result
+        }()
+
         box.heightAnchor.constraint(equalTo: messageLabel.heightAnchor, constant: boxHeightWithoutMessage).isActive = true
 
         for (index, textField) in textFields.enumerated() {
