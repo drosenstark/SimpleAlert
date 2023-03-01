@@ -313,45 +313,39 @@ import Cartography
             let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
             box.constrainCenter(to: superview, multiplierY: multiplerY)
         }
-//        constrain(box) { box in
-//            box.width == boxWidth
-//            if showAlertInTopHalf {
-//                box.centerY == box.superview!.centerY * 0.50
-//                box.centerX == box.superview!.centerX
-//            } else {
-//                box.center == box.superview!.center
-//            }
-//        }
-
-        constrain(box, titleLabel, messageLabel, buttonsBox, textFieldsBox) { box, titleLabel, messageLabel, buttonsBox, textFieldsBox in
-            titleLabel.width == box.width - sideMargin * 2
-            titleLabel.centerX == box.centerX
-            titleLabel.height == titleHeight
-
-            messageLabel.width == titleLabel.width
-            messageLabel.centerX == box.centerX
-
-            textFieldsBox.width == box.width
-            textFieldsBox.centerX == box.centerX
-
-            buttonsBox.width == box.width
-            buttonsBox.centerX == box.centerX
-
-            titleLabel.top == box.top + topMargin
-            messageLabel.top == titleLabel.bottom + spaceBetweenSections
-
-            textFieldsBox.height == textFieldsBoxHeight
-            textFieldsBox.top == messageLabel.bottom + spaceBetweenSections
-            let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 0 : spaceBetweenSections * 0.5
-
-            buttonsBox.height == buttonsBoxHeight
-            buttonsBox.top == textFieldsBox.bottom + spaceAfterTextFields
-
-            var boxHeightWithoutMessage = topMargin + titleHeight + 2 * spaceBetweenSections + spaceAfterTextFields
-            boxHeightWithoutMessage += textFieldsBoxHeight // (textFieldsBoxHeight > 0) ? buttonsBoxHeight + buttonInset * 0.5 : bottomMarginIfNecessary
-            boxHeightWithoutMessage += (buttonsBoxHeight > 0) ? buttonsBoxHeight : bottomMarginIfNecessary
-            box.height == messageLabel.height + boxHeightWithoutMessage
+        
+        [box, titleLabel, messageLabel, buttonsBox, textFieldsBox].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
+
+        titleLabel.widthAnchor.constraint(equalTo: box.widthAnchor, constant: -(sideMargin * 2)).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: titleHeight).isActive = true
+        
+        messageLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor, multiplier: 1.0).isActive = true
+        messageLabel.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0).isActive = true
+
+        textFieldsBox.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
+        textFieldsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
+
+        buttonsBox.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
+        buttonsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
+        
+        titleLabel.topAnchor.constraint(equalTo: box.topAnchor, constant: topMargin).isActive = true
+        messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spaceBetweenSections).isActive = true
+
+        textFieldsBox.heightAnchor.constraint(equalToConstant: textFieldsBoxHeight).isActive = true
+        textFieldsBox.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).isActive = true
+
+        let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 0 : spaceBetweenSections * 0.5
+
+        buttonsBox.heightAnchor.constraint(equalToConstant: buttonsBoxHeight).isActive = true
+        buttonsBox.topAnchor.constraint(equalTo: textFieldsBox.bottomAnchor, constant: spaceAfterTextFields).isActive = true
+        
+        var boxHeightWithoutMessage = topMargin + titleHeight + 2 * spaceBetweenSections + spaceAfterTextFields
+        boxHeightWithoutMessage += textFieldsBoxHeight // (textFieldsBoxHeight > 0) ? buttonsBoxHeight + buttonInset * 0.5 : bottomMarginIfNecessary
+        boxHeightWithoutMessage += (buttonsBoxHeight > 0) ? buttonsBoxHeight : bottomMarginIfNecessary
+        box.heightAnchor.constraint(equalTo: messageLabel.heightAnchor, constant: boxHeightWithoutMessage).isActive = true
 
         for (index, textField) in textFields.enumerated() {
             textField.backgroundColor = textFieldBackgroundColor
