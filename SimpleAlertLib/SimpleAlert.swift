@@ -300,14 +300,14 @@
         bringSubviewToFront(topIcon)
 
         constrainSizeTo(view: superview)
-        
+
         let titleHeight = title == nil ? 0.0 : self.titleHeight
 
         box.widthAnchor.constraint(equalToConstant: boxWidth).isActive = true
 
         let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
         box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
-        
+
         [box, titleLabel, messageLabel, buttonsBox, textFieldsBox].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -315,7 +315,7 @@
         titleLabel.widthAnchor.constraint(equalTo: box.widthAnchor, constant: -(sideMargin * 2)).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: titleHeight).isActive = true
-        
+
         messageLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor, multiplier: 1.0).isActive = true
         messageLabel.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0).isActive = true
 
@@ -324,7 +324,7 @@
 
         buttonsBox.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
         buttonsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
-        
+
         titleLabel.topAnchor.constraint(equalTo: box.topAnchor, constant: topMargin).isActive = true
         messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spaceBetweenSections).isActive = true
 
@@ -335,7 +335,7 @@
 
         buttonsBox.heightAnchor.constraint(equalToConstant: buttonsBoxHeight).isActive = true
         buttonsBox.topAnchor.constraint(equalTo: textFieldsBox.bottomAnchor, constant: spaceAfterTextFields).isActive = true
-        
+
         let boxHeightWithoutMessage = {
             var result = topMargin + titleHeight + 2 * self.spaceBetweenSections + spaceAfterTextFields
             result += textFieldsBoxHeight
