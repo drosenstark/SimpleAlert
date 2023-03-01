@@ -301,18 +301,14 @@ import Cartography
 
         bringSubviewToFront(topIcon)
 
-        if let superview = superview {
-            constrainSize(to: superview)
-        }
+        constrainSizeTo(view: superview)
         
         let titleHeight = title == nil ? 0.0 : self.titleHeight
 
-        if let superview = box.superview {
-            box.widthAnchor.constraint(equalToConstant: boxWidth).isActive = true
+        box.widthAnchor.constraint(equalToConstant: boxWidth).isActive = true
 
-            let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
-            box.constrainCenter(to: superview, multiplierY: multiplerY)
-        }
+        let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
+        box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
         
         [box, titleLabel, messageLabel, buttonsBox, textFieldsBox].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
