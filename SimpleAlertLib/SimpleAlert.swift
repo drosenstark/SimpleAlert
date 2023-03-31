@@ -117,13 +117,13 @@
 
         window.addSubview(self)
 
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.centerXAnchor.constraint(equalTo: window.centerXAnchor).isActive = true
-        self.centerYAnchor.constraint(equalTo: window.centerYAnchor).isActive = true
-        self.widthAnchor.constraint(equalTo: window.widthAnchor).isActive = true
-        self.heightAnchor.constraint(equalTo: window.heightAnchor).isActive = true
-        
+        translatesAutoresizingMaskIntoConstraints = false
+
+        centerXAnchor.constraint(equalTo: window.centerXAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: window.centerYAnchor).isActive = true
+        widthAnchor.constraint(equalTo: window.widthAnchor).isActive = true
+        heightAnchor.constraint(equalTo: window.heightAnchor).isActive = true
+
         prepSubviews()
 
         if animated {

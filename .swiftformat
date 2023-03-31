@@ -1,0 +1,7 @@
+# http://cocoadocs.org/docsets/SwiftFormat/0.24/
+
+# file options
+--exclude  Carthage/*, /**/Pods, /**/*StateMachine.swift
+
+# disable rules
+--disable strongOutlets, trailingCommas, unusedArguments
