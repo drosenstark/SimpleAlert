@@ -119,8 +119,8 @@
 
         translatesAutoresizingMaskIntoConstraints = false
 
-        centerXAnchor.constraint(equalTo: window.centerXAnchor).activateAndName("simpleAlert.centerXOne")
-        centerYAnchor.constraint(equalTo: window.centerYAnchor).activateAndName("simpleAlert.centerYOne")
+        widthAnchor.constraint(equalTo: window.widthAnchor).activateAndName("simpleAlert.widthOne")
+        heightAnchor.constraint(equalTo: window.heightAnchor).activateAndName("simpleAlert.heightOne")
 
         prepSubviews()
 
