@@ -6,14 +6,21 @@ extension UIView {
     func constrainCenterTo(view: UIView?, multiplierY: CGFloat = 1.0, multiplierX: CGFloat = 1.0) {
         guard let view else { return }
 
-        centerXAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.centerXAnchor, multiplier: multiplierX).isActive = true
-        centerYAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.centerYAnchor, multiplier: multiplierY).isActive = true
+        NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .centerX, multiplier: multiplierX, constant: 0).activateAndName("simpleAlert.box.centerX")
+        NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .centerY, multiplier: multiplierY, constant: 0).activateAndName("simpleAlert.box.centerY")
     }
 
     func constrainSizeTo(view: UIView?, multiplierY: CGFloat = 1.0, multiplierX: CGFloat = 1.0) {
         guard let view else { return }
 
-        widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: multiplierX).isActive = true
-        heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: multiplierY).isActive = true
+        NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .width, multiplier: multiplierX, constant: 0).activateAndName("simpleAlert.box.width")
+        NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .height, multiplier: multiplierY, constant: 0).activateAndName("simpleAlert.box.height")
+    }
+}
+
+extension NSLayoutConstraint {
+    func activateAndName(_ name: String) {
+        identifier = name
+        isActive = true
     }
 }

@@ -119,10 +119,8 @@
 
         translatesAutoresizingMaskIntoConstraints = false
 
-        centerXAnchor.constraint(equalTo: window.centerXAnchor).isActive = true
-        centerYAnchor.constraint(equalTo: window.centerYAnchor).isActive = true
-        widthAnchor.constraint(equalTo: window.widthAnchor).isActive = true
-        heightAnchor.constraint(equalTo: window.heightAnchor).isActive = true
+        centerXAnchor.constraint(equalTo: window.centerXAnchor).activateAndName("simpleAlert.centerXOne")
+        centerYAnchor.constraint(equalTo: window.centerYAnchor).activateAndName("simpleAlert.centerYOne")
 
         prepSubviews()
 
@@ -310,7 +308,7 @@
 
         let titleHeight = title == nil ? 0.0 : self.titleHeight
 
-        box.widthAnchor.constraint(equalToConstant: boxWidth).isActive = true
+        box.widthAnchor.constraint(equalToConstant: boxWidth).activateAndName("simpleAlert.box.width")
 
         let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
         box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
@@ -333,10 +331,10 @@
         buttonsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
 
         titleLabel.topAnchor.constraint(equalTo: box.topAnchor, constant: topMargin).isActive = true
-        messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spaceBetweenSections).isActive = true
+        messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.messageLabel.topAnchor")
 
         textFieldsBox.heightAnchor.constraint(equalToConstant: textFieldsBoxHeight).isActive = true
-        textFieldsBox.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).isActive = true
+        textFieldsBox.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.textFieldsBox.topAnchor")
 
         let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 0 : spaceBetweenSections * 0.5
 
@@ -350,7 +348,7 @@
             return result
         }()
 
-        box.heightAnchor.constraint(equalTo: messageLabel.heightAnchor, constant: boxHeightWithoutMessage).isActive = true
+        box.heightAnchor.constraint(equalTo: messageLabel.heightAnchor, constant: boxHeightWithoutMessage).activateAndName("simpleAlert.box.height")
 
         for (index, textField) in textFields.enumerated() {
             textField.backgroundColor = textFieldBackgroundColor
