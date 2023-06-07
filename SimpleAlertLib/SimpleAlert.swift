@@ -23,7 +23,7 @@
     @objc open var buttonHighlightColor: UIColor!
     @objc open var buttonsBoxColor: UIColor!
 
-    @objc open var boxWidth = CGFloat(250.0)
+    @objc open var boxWidth = CGFloat(300.0)
     @objc open var topMargin = CGFloat(20.0)
     @objc open var bottomMarginIfNecessary = CGFloat(20.0)
     @objc open var sideMargin = CGFloat(20.0)
@@ -308,7 +308,8 @@
 
         let titleHeight = title == nil ? 0.0 : self.titleHeight
 
-        box.widthAnchor.constraint(equalToConstant: boxWidth).activateAndName("simpleAlert.box.width")
+        box.widthAnchor.constraint(lessThanOrEqualToConstant: boxWidth).activateAndName("simpleAlert.box.width")
+        box.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.90).activateAndName("simpleAlert.box.width.vs.enclosing.view")
 
         let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
         box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
