@@ -19,7 +19,10 @@ extension UIView {
 }
 
 extension NSLayoutConstraint {
-    func activateAndName(_ name: String) {
+    func activateAndName(_ name: String, priority: UILayoutPriority? = nil) {
+        if let priority {
+            self.priority = priority
+        }
         identifier = name
         isActive = true
     }

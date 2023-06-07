@@ -309,7 +309,7 @@
         let titleHeight = title == nil ? 0.0 : self.titleHeight
 
         box.widthAnchor.constraint(lessThanOrEqualToConstant: boxWidth).activateAndName("simpleAlert.box.width")
-        box.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.90).activateAndName("simpleAlert.box.width.vs.enclosing.view")
+        box.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.80).activateAndName("simpleAlert.box.width.vs.enclosing.view", priority: .defaultHigh)
 
         let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
         box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
