@@ -254,6 +254,7 @@
         }
         button.setTitle(text, for: UIControl.State())
         button.setTitleColor(tintColor, for: UIControl.State())
+        button.setTitleColor(.gray, for: .disabled)
 
         button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouch(_:)), for: UIControl.Event.touchDown)
         button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControl.Event.touchUpOutside)
