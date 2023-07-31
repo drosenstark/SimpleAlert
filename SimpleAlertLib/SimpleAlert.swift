@@ -85,22 +85,22 @@
 
     @discardableResult
     @objc open func addTextFieldWithPlaceholder(_ placeholder: String, secureEntry: Bool, changeHandler: ((UITextField) -> Void)?) -> UITextField {
-        let retVal = UITextField()
-        retVal.backgroundColor = UIColor.white
-        retVal.placeholder = placeholder
-        retVal.isSecureTextEntry = secureEntry
-        retVal.font = UIFont.systemFont(ofSize: textFieldRowHeight / 3.0 + 2.0)
-        retVal.delegate = self
+        let textField = UITextField()
+        textField.backgroundColor = UIColor.white
+        textField.placeholder = placeholder
+        textField.isSecureTextEntry = secureEntry
+        textField.font = UIFont.systemFont(ofSize: textFieldRowHeight / 3.0 + 2.0)
+        textField.delegate = self
         if let handler = changeHandler {
-            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: retVal, queue: OperationQueue.main) { notification in
-                handler(retVal)
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { notification in
+                handler(textField)
             }
         }
 
-        textFields.append(retVal)
-        textFieldsBox.addSubview(retVal)
+        textFields.append(textField)
+        textFieldsBox.addSubview(textField)
 
-        return retVal
+        return textField
     }
 
     @objc open func showInWindow(_ window: UIWindow, animated: Bool = true) {
