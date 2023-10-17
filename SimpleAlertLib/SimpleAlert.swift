@@ -23,12 +23,6 @@
     @objc open var buttonHighlightColor: UIColor!
     @objc open var buttonsBoxColor: UIColor!
 
-    let titleHeight = CGFloat(30.0)
-    let boxWidth = CGFloat(300.0)
-    let titleFontSize = CGFloat(17.0)
-    let messageFontSize = CGFloat(13.0)
-    let buttonRowHeight = CGFloat(40.0)
-
     @objc open var topMargin = CGFloat(20.0)
     @objc var bottomMarginIfNecessary = CGFloat(20.0)
     @objc var sideMargin = CGFloat(20.0)
@@ -50,6 +44,14 @@
 
     // working around a shared dependency on other stuff in my own libs
     @objc open var doThisToEveryButton: ((UIButton) -> Void)?
+    
+    // MARK: - Sizes
+
+    open var boxWidth: CGFloat = 350
+    open var titleHeight: CGFloat = 30.0
+    var titleFontSize: CGFloat = 19.0
+    var messageFontSize: CGFloat = 16.5
+    var buttonRowHeight: CGFloat = 45.0
 
     // MARK: - class methods
 
@@ -125,7 +127,7 @@
         widthAnchor.constraint(equalTo: window.widthAnchor).activateAndName("simpleAlert.widthOne")
         heightAnchor.constraint(equalTo: window.heightAnchor).activateAndName("simpleAlert.heightOne")
 
-        prepSubviews()
+        prepSubviews(in: window)
 
         if animated {
             alpha = 0.0
@@ -223,7 +225,7 @@
         layoutTopIcon()
         framePulledUp = nil
     }
-
+    
     // MARK: - Theme
 
     // the initial value is for Objective-C to work
@@ -273,7 +275,7 @@
     }
 
     // public for being overridden
-    @objc open func prepSubviews() {
+    open func prepSubviews(in window: UIWindow) {
         addSubview(topIcon)
         box.layer.cornerRadius = 10.0
         backgroundColor = modalBackgroundColor
@@ -447,5 +449,11 @@ class ButtonSub: UIButton {
 
     @objc func callHandler() {
         handler?()
+    }
+}
+
+extension CGSize {
+    var longestSide: CGFloat {
+        return max(width, height)
     }
 }
