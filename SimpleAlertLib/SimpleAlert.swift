@@ -23,11 +23,16 @@
     @objc open var buttonHighlightColor: UIColor!
     @objc open var buttonsBoxColor: UIColor!
 
-    @objc open var boxWidth = CGFloat(300.0)
+    let titleHeight = CGFloat(30.0)
+    let boxWidth = CGFloat(300.0)
+    let titleFontSize = CGFloat(17.0)
+    let messageFontSize = CGFloat(13.0)
+    let buttonRowHeight = CGFloat(40.0)
+
     @objc open var topMargin = CGFloat(20.0)
-    @objc open var bottomMarginIfNecessary = CGFloat(20.0)
-    @objc open var sideMargin = CGFloat(20.0)
-    @objc open var spaceBetweenSections = CGFloat(10.0)
+    @objc var bottomMarginIfNecessary = CGFloat(20.0)
+    @objc var sideMargin = CGFloat(20.0)
+    @objc var spaceBetweenSections = CGFloat(10.0)
 
     @objc open var textFieldTextColor = UIColor.black
     @objc open var textFieldPlaceholderColor = UIColor.darkGray
@@ -37,8 +42,6 @@
     @objc open var textFieldInset = CGFloat(10.0)
 
     @objc open var buttonInset = CGFloat(0.0)
-    let titleHeight = CGFloat(30.0)
-    @objc open var buttonRowHeight = CGFloat(40.0)
     @objc open var buttonRowVerticalSpace = CGFloat(1.0)
 
     @objc open var showAlertInTopHalf: Bool = false
@@ -278,13 +281,13 @@
         box.clipsToBounds = true
         addSubview(box)
 
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: titleFontSize)
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
         titleLabel.textColor = titleTextColor
         box.addSubview(titleLabel)
 
-        messageLabel.font = UIFont.systemFont(ofSize: 13.0)
+        messageLabel.font = UIFont.systemFont(ofSize: messageFontSize)
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.textColor = messageTextColor
