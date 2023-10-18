@@ -1,5 +1,7 @@
 // (c) Confusion Studios LLC and affiliates. Confidential and proprietary.
 
+private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
+
 @objc public enum SimpleAlertTheme: Int { case dark, light }
 
 @objc open class SimpleAlert: UIView, UITextFieldDelegate {
@@ -44,14 +46,15 @@
 
     // working around a shared dependency on other stuff in my own libs
     @objc open var doThisToEveryButton: ((UIButton) -> Void)?
-    
+
     // MARK: - Sizes
 
-    open var boxWidth: CGFloat = 350
+    open var boxWidth: CGFloat = IS_PHONE ? 300 : 350
     open var titleHeight: CGFloat = 30.0
-    var titleFontSize: CGFloat = 19.0
-    var messageFontSize: CGFloat = 16.5
-    var buttonRowHeight: CGFloat = 45.0
+    var titleFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
+    var messageFontSize: CGFloat = IS_PHONE ? 15 : 16.5
+    var buttonRowHeight: CGFloat = IS_PHONE ? 37.5 : 45.0
+    var buttonFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
 
     // MARK: - class methods
 
@@ -225,7 +228,7 @@
         layoutTopIcon()
         framePulledUp = nil
     }
-    
+
     // MARK: - Theme
 
     // the initial value is for Objective-C to work
@@ -257,6 +260,8 @@
         if let doThis = doThisToEveryButton {
             doThis(button)
         }
+
+        button.adjustFontSize(to: buttonFontSize)
         button.setTitle(text, for: UIControl.State())
         button.setTitleColor(tintColor, for: UIControl.State())
         button.setTitleColor(.gray, for: .disabled)
@@ -343,7 +348,7 @@
         textFieldsBox.heightAnchor.constraint(equalToConstant: textFieldsBoxHeight).isActive = true
         textFieldsBox.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.textFieldsBox.topAnchor")
 
-        let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 0 : spaceBetweenSections * 0.5
+        let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 10 : spaceBetweenSections * 0.5
 
         buttonsBox.heightAnchor.constraint(equalToConstant: buttonsBoxHeight).isActive = true
         buttonsBox.topAnchor.constraint(equalTo: textFieldsBox.bottomAnchor, constant: spaceAfterTextFields).isActive = true
@@ -452,8 +457,18 @@ class ButtonSub: UIButton {
     }
 }
 
-extension CGSize {
+// MARK: - Util
+
+private extension CGSize {
     var longestSide: CGFloat {
         return max(width, height)
+    }
+}
+
+private extension UIButton {
+    func adjustFontSize(to newFontSize: CGFloat) {
+        guard let font = titleLabel?.font else { return }
+
+        titleLabel?.font = UIFont(descriptor: font.fontDescriptor, size: newFontSize)
     }
 }
