@@ -348,7 +348,13 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         textFieldsBox.heightAnchor.constraint(equalToConstant: textFieldsBoxHeight).isActive = true
         textFieldsBox.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.textFieldsBox.topAnchor")
 
-        let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 10 : spaceBetweenSections * 0.5
+        let spaceAfterTextFields: CGFloat = {
+            if textFieldsBoxHeight == 0 {
+                return buttons.count > 0 ? 10 : 0
+            } else {
+                return spaceBetweenSections * 0.5
+            }
+        }()
 
         buttonsBox.heightAnchor.constraint(equalToConstant: buttonsBoxHeight).isActive = true
         buttonsBox.topAnchor.constraint(equalTo: textFieldsBox.bottomAnchor, constant: spaceAfterTextFields).isActive = true
