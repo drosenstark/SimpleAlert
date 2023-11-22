@@ -27,6 +27,7 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
     
     @objc open var messageLabelTextAlignment = NSTextAlignment.center
 
+
     @objc open var topMargin = CGFloat(20.0)
     @objc var bottomMarginIfNecessary = CGFloat(20.0)
     @objc var sideMargin = CGFloat(20.0)
@@ -80,6 +81,13 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
             messageLabel.text = message
         }
     }
+    
+    @objc open var attributedTextForMessage: NSAttributedString? {
+        didSet {
+            messageLabel.attributedText = attributedTextForMessage
+        }
+    }
+
 
     // MARK: - Add Methods
 
