@@ -24,6 +24,8 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
     @objc open var messageTextColor: UIColor!
     @objc open var buttonHighlightColor: UIColor!
     @objc open var buttonsBoxColor: UIColor!
+    
+    @objc open var messageLabelTextAlignment = NSTextAlignment.center
 
     @objc open var topMargin = CGFloat(20.0)
     @objc var bottomMarginIfNecessary = CGFloat(20.0)
@@ -296,7 +298,7 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 
         messageLabel.font = UIFont.systemFont(ofSize: messageFontSize)
         messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
+        messageLabel.textAlignment = messageLabelTextAlignment
         messageLabel.textColor = messageTextColor
         box.addSubview(messageLabel)
 
