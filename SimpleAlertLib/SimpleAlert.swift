@@ -9,8 +9,11 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 
     private let messageLabel = UILabel()
     private let titleLabel = UILabel()
-    private let textFieldsBox = UIView()
+
+    // this contains the text fields OR the custom view
+    private let middleContainer = UIView()
     private var textFields: [UITextField] = []
+    private var middleContainerCustomView: UIView?
 
     @objc public let box = UIView()
     @objc public let buttonsBox = UIView()
@@ -102,6 +105,10 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 
     @discardableResult
     @objc open func addTextFieldWithPlaceholder(_ placeholder: String, secureEntry: Bool, changeHandler: ((UITextField) -> Void)?) -> UITextField {
+        guard middleContainerCustomView == nil else {
+            fatalError("choose text fields or custom view but not both")
+        }
+
         let textField = UITextField()
         textField.backgroundColor = UIColor.white
         textField.placeholder = placeholder
@@ -115,9 +122,18 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         }
 
         textFields.append(textField)
-        textFieldsBox.addSubview(textField)
+        middleContainer.addSubview(textField)
 
         return textField
+    }
+
+    open func setCustomView(_ customView: UIView) {
+        guard textFields.count == 0 else {
+            fatalError("choose text fields or custom view but not both")
+        }
+
+        middleContainerCustomView = customView
+        middleContainer.addSubview(customView)
     }
 
     @objc open func showInWindow(_ window: UIWindow, animated: Bool = true) {
@@ -309,11 +325,16 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         messageLabel.textColor = messageTextColor
         box.addSubview(messageLabel)
 
-        box.addSubview(textFieldsBox)
-        textFieldsBox.clipsToBounds = true
+        box.addSubview(middleContainer)
+        middleContainer.clipsToBounds = true
 
         let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
-        let textFieldsBoxHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
+        let customMiddleViewGutsHeight: CGFloat
+        if let middleContainerCustomView {
+            customMiddleViewGutsHeight = middleContainerCustomView.frame.size.height
+        } else {
+            customMiddleViewGutsHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
+        }
 
         box.addSubview(buttonsBox)
         buttonsBox.backgroundColor = buttonsBoxColor
@@ -321,6 +342,12 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 
         let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
         let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
+
+        if let middleContainerCustomView {
+            middleContainerCustomView.translatesAutoresizingMaskIntoConstraints = false
+            middleContainerCustomView.centerXAnchor.constraint(equalTo: middleContainer.centerXAnchor).isActive = true
+            middleContainerCustomView.widthAnchor.constraint(equalTo: middleContainer.widthAnchor, multiplier: 0.9).isActive = true
+        }
 
         bringSubviewToFront(topIcon)
 
@@ -334,7 +361,7 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
         box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
 
-        [box, titleLabel, messageLabel, buttonsBox, textFieldsBox].forEach {
+        [box, titleLabel, messageLabel, buttonsBox, middleContainer].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
@@ -345,8 +372,8 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         messageLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor, multiplier: 1.0).isActive = true
         messageLabel.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0).isActive = true
 
-        textFieldsBox.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
-        textFieldsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
+        middleContainer.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
+        middleContainer.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
 
         buttonsBox.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
         buttonsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
@@ -354,11 +381,11 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         titleLabel.topAnchor.constraint(equalTo: box.topAnchor, constant: topMargin).isActive = true
         messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.messageLabel.topAnchor")
 
-        textFieldsBox.heightAnchor.constraint(equalToConstant: textFieldsBoxHeight).isActive = true
-        textFieldsBox.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.textFieldsBox.topAnchor")
+        middleContainer.heightAnchor.constraint(equalToConstant: customMiddleViewGutsHeight).isActive = true
+        middleContainer.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.textFieldsBox.topAnchor")
 
         let spaceAfterTextFields: CGFloat = {
-            if textFieldsBoxHeight == 0 {
+            if customMiddleViewGutsHeight == 0 {
                 return buttons.count > 0 ? 10 : 0
             } else {
                 return spaceBetweenSections * 0.5
@@ -366,11 +393,11 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         }()
 
         buttonsBox.heightAnchor.constraint(equalToConstant: buttonsBoxHeight).isActive = true
-        buttonsBox.topAnchor.constraint(equalTo: textFieldsBox.bottomAnchor, constant: spaceAfterTextFields).isActive = true
+        buttonsBox.topAnchor.constraint(equalTo: middleContainer.bottomAnchor, constant: spaceAfterTextFields).isActive = true
 
         let boxHeightWithoutMessage = {
             var result = topMargin + titleHeight + 2 * self.spaceBetweenSections + spaceAfterTextFields
-            result += textFieldsBoxHeight
+            result += customMiddleViewGutsHeight
             result += (buttonsBoxHeight > 0) ? buttonsBoxHeight : self.bottomMarginIfNecessary
             return result
         }()
@@ -394,9 +421,9 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 
             let top = CGFloat(CGFloat(index) * textFieldRowTotalHeight)
             textField.heightAnchor.constraint(equalToConstant: textFieldRowHeight).isActive = true
-            textField.widthAnchor.constraint(equalTo: textFieldsBox.widthAnchor, constant: -textFieldInset).isActive = true
-            textField.centerXAnchor.constraint(equalTo: textFieldsBox.centerXAnchor, constant: 0).isActive = true
-            textField.topAnchor.constraint(equalTo: textFieldsBox.topAnchor, constant: top + textFieldRowVerticalSpace).isActive = true
+            textField.widthAnchor.constraint(equalTo: middleContainer.widthAnchor, constant: -textFieldInset).isActive = true
+            textField.centerXAnchor.constraint(equalTo: middleContainer.centerXAnchor, constant: 0).isActive = true
+            textField.topAnchor.constraint(equalTo: middleContainer.topAnchor, constant: top + textFieldRowVerticalSpace).isActive = true
         }
 
         for (index, button) in buttons.enumerated() {
