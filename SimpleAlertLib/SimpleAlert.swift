@@ -7,57 +7,57 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 @objc open class SimpleAlert: UIView, UITextFieldDelegate {
     weak static var lastAlert: SimpleAlert?
 
-    let messageLabel = UILabel()
-    let titleLabel = UILabel()
+    private let messageLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let textFieldsBox = UIView()
+    private var textFields: [UITextField] = []
+
     @objc public let box = UIView()
     @objc public let buttonsBox = UIView()
-    @objc open var buttons: [UIButton] = []
-    let textFieldsBox = UIView()
-    var textFields: [UITextField] = []
-    @objc open var doNotAutomaticallyEnableTheseButtons: [UIButton] = []
+    @objc public var buttons: [UIButton] = []
+    @objc public var doNotAutomaticallyEnableTheseButtons: [UIButton] = []
 
-    @objc open var topIcon = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-    @objc open var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
-    @objc open var boxBackgroundColor: UIColor!
-    @objc open var buttonsBoxBackgroundColor: UIColor!
-    @objc open var titleTextColor: UIColor!
-    @objc open var messageTextColor: UIColor!
-    @objc open var buttonHighlightColor: UIColor!
-    @objc open var buttonsBoxColor: UIColor!
-    
-    @objc open var messageLabelTextAlignment = NSTextAlignment.center
+    @objc public var topIcon = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    @objc public var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
+    @objc public var boxBackgroundColor: UIColor!
+    @objc public var buttonsBoxBackgroundColor: UIColor!
+    @objc public var titleTextColor: UIColor!
+    @objc public var messageTextColor: UIColor!
+    @objc public var buttonHighlightColor: UIColor!
+    @objc public var buttonsBoxColor: UIColor!
 
+    @objc public var messageLabelTextAlignment = NSTextAlignment.center
 
-    @objc open var topMargin = CGFloat(20.0)
-    @objc var bottomMarginIfNecessary = CGFloat(20.0)
-    @objc var sideMargin = CGFloat(20.0)
-    @objc var spaceBetweenSections = CGFloat(10.0)
+    @objc public var topMargin = CGFloat(20.0)
+    @objc public var bottomMarginIfNecessary = CGFloat(20.0)
+    @objc public var sideMargin = CGFloat(20.0)
+    @objc public var spaceBetweenSections = CGFloat(10.0)
 
-    @objc open var textFieldTextColor = UIColor.black
-    @objc open var textFieldPlaceholderColor = UIColor.darkGray
-    @objc open var textFieldBackgroundColor = UIColor.white
-    @objc open var textFieldRowHeight = CGFloat(30.0)
-    @objc open var textFieldRowVerticalSpace = CGFloat(1.0)
-    @objc open var textFieldInset = CGFloat(10.0)
+    @objc public var textFieldTextColor = UIColor.black
+    @objc public var textFieldPlaceholderColor = UIColor.darkGray
+    @objc public var textFieldBackgroundColor = UIColor.white
+    @objc public var textFieldRowHeight = CGFloat(30.0)
+    @objc public var textFieldRowVerticalSpace = CGFloat(1.0)
+    @objc public var textFieldInset = CGFloat(10.0)
 
-    @objc open var buttonInset = CGFloat(0.0)
-    @objc open var buttonRowVerticalSpace = CGFloat(1.0)
+    @objc public var buttonInset = CGFloat(0.0)
+    @objc public var buttonRowVerticalSpace = CGFloat(1.0)
 
-    @objc open var showAlertInTopHalf: Bool = false
+    @objc public var showAlertInTopHalf: Bool = false
 
-    var showWasAnimated = false
+    private var showWasAnimated = false
 
     // working around a shared dependency on other stuff in my own libs
-    @objc open var doThisToEveryButton: ((UIButton) -> Void)?
+    @objc public var doThisToEveryButton: ((UIButton) -> Void)?
 
     // MARK: - Sizes
 
-    open var boxWidth: CGFloat = IS_PHONE ? 300 : 350
-    open var titleHeight: CGFloat = 30.0
-    var titleFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
-    var messageFontSize: CGFloat = IS_PHONE ? 15 : 16.5
-    var buttonRowHeight: CGFloat = IS_PHONE ? 37.5 : 45.0
-    var buttonFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
+    public var boxWidth: CGFloat = IS_PHONE ? 300 : 350
+    public var titleHeight: CGFloat = 30.0
+    private var titleFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
+    private var messageFontSize: CGFloat = IS_PHONE ? 15 : 16.5
+    private var buttonRowHeight: CGFloat = IS_PHONE ? 37.5 : 45.0
+    private var buttonFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
 
     // MARK: - class methods
 
@@ -81,13 +81,12 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
             messageLabel.text = message
         }
     }
-    
+
     @objc open var attributedTextForMessage: NSAttributedString? {
         didSet {
             messageLabel.attributedText = attributedTextForMessage
         }
     }
-
 
     // MARK: - Add Methods
 
