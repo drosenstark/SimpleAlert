@@ -4,6 +4,7 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
 
 @objc public enum SimpleAlertTheme: Int { case dark, light }
 
+/// SimpleAlert is a simple framework for alerts/dialogs on iOS.
 @objc open class SimpleAlert: UIView, UITextFieldDelegate {
     weak static var lastAlert: SimpleAlert?
 

@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370C10732B23708F00902D8B /* SimpleAlertDocumentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 370C10722B23708F00902D8B /* SimpleAlertDocumentation.docc */; };
 		3722B59329ABB89A00CD4111 /* UIView+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B59229ABB89A00CD4111 /* UIView+Util.swift */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		370C10722B23708F00902D8B /* SimpleAlertDocumentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = SimpleAlertDocumentation.docc; sourceTree = "<group>"; };
 		3722B59229ABB89A00CD4111 /* UIView+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Util.swift"; sourceTree = "<group>"; };
 		37489B2F25978FD2006BC827 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +45,7 @@
 		C99E90891CB95E14001E70CC = {
 			isa = PBXGroup;
 			children = (
+				370C10722B23708F00902D8B /* SimpleAlertDocumentation.docc */,
 				C99E90951CB95E14001E70CC /* SimpleAlertLib */,
 				C99E90941CB95E14001E70CC /* Products */,
 				A8C8084232DC20BF19CD1E8E /* Frameworks */,
@@ -154,6 +157,7 @@
 			files = (
 				3722B59329ABB89A00CD4111 /* UIView+Util.swift in Sources */,
 				C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */,
+				370C10732B23708F00902D8B /* SimpleAlertDocumentation.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
