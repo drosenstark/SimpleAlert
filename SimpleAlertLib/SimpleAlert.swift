@@ -128,6 +128,11 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
         return textField
     }
 
+    // alias
+    open func setMiddleContainerCustomView(_ customView: UIView) {
+        setCustomView(customView)
+    }
+
     open func setCustomView(_ customView: UIView) {
         guard textFields.count == 0 else {
             fatalError("choose text fields or custom view but not both")
@@ -188,16 +193,37 @@ private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
     @objc open func dismiss() {
         removeKeyboardNotifications()
         if !showWasAnimated {
-            DispatchQueue.main.async {
+            let delay = stopSpinnerAnimationMaybe() ? 0.5 : 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 self.removeFromSuperview()
             }
         } else {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.alpha = 0.0
-            }, completion: { _ in
-                self.removeFromSuperview()
-            })
+            dismissAnimated()
         }
+    }
+
+    /// true if there was a spinner to stop
+    private func stopSpinnerAnimationMaybe() -> Bool {
+        if let middleContainer = middleContainerCustomView as? (UIView & StopAnimatingProtocol) {
+            middleContainer.stopAnimating()
+            return true
+        }
+        return false
+    }
+    
+    private func dismissAnimated() {
+        let delay = stopSpinnerAnimationMaybe() ? 0.5 : 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            self?.dismissAnimatedInner()
+        }
+    }
+    
+    private func dismissAnimatedInner() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.alpha = 0.0
+        }, completion: { _ in
+            self.removeFromSuperview()
+        })
     }
 
     // MARK: - UITextFieldDelegate Methods
