@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3796CFC12ADEE64700F81E56 /* SimpleAlertLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EB179D1CC837E300FD8EE0 /* SimpleAlertLib.framework */; };
+		3796CFC22ADEE64700F81E56 /* SimpleAlertLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9EB179D1CC837E300FD8EE0 /* SimpleAlertLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C99E906D1CB95D26001E70CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E906C1CB95D26001E70CC /* AppDelegate.swift */; };
 		C99E906F1CB95D26001E70CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E906E1CB95D26001E70CC /* ViewController.swift */; };
 		C99E90721CB95D26001E70CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99E90701CB95D26001E70CC /* Main.storyboard */; };
 		C99E90741CB95D26001E70CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C99E90731CB95D26001E70CC /* Assets.xcassets */; };
 		C99E90771CB95D26001E70CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99E90751CB95D26001E70CC /* LaunchScreen.storyboard */; };
-		C9EB179E1CC837F400FD8EE0 /* SimpleAlertLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EB179D1CC837E300FD8EE0 /* SimpleAlertLib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,13 +33,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3796CFC22ADEE64700F81E56 /* SimpleAlertLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4D6078221694AE4FED3DF871 /* Pods_SimpleAlertExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleAlertExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90691CB95D26001E70CC /* SimpleAlertExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleAlertExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E906C1CB95D26001E70CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C99E906E1CB95D26001E70CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9EB179E1CC837F400FD8EE0 /* SimpleAlertLib.framework in Frameworks */,
+				3796CFC12ADEE64700F81E56 /* SimpleAlertLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +65,6 @@
 		37489B3325978FE5006BC827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4D6078221694AE4FED3DF871 /* Pods_SimpleAlertExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,6 +141,7 @@
 				TargetAttributes = {
 					C99E90681CB95D26001E70CC = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 6FKVWU2G7X;
 						LastSwiftMigration = 0810;
 					};
 				};
@@ -314,6 +315,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6FKVWU2G7X;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -332,6 +334,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6FKVWU2G7X;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370C10732B23708F00902D8B /* SimpleAlertDocumentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 370C10722B23708F00902D8B /* SimpleAlertDocumentation.docc */; };
 		3722B59329ABB89A00CD4111 /* UIView+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B59229ABB89A00CD4111 /* UIView+Util.swift */; };
+		374A62492C38F2DD000CAA9B /* NSLayoutConstraintUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A62482C38F2DD000CAA9B /* NSLayoutConstraintUtils.swift */; };
+		37C10BE32B27F173001EFF14 /* StopAnimatingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C10BE22B27F173001EFF14 /* StopAnimatingProtocol.swift */; };
 		C99E90971CB95E14001E70CC /* SimpleAlertLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C99E90961CB95E14001E70CC /* SimpleAlertLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		370C10722B23708F00902D8B /* SimpleAlertDocumentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = SimpleAlertDocumentation.docc; sourceTree = "<group>"; };
 		3722B59229ABB89A00CD4111 /* UIView+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Util.swift"; sourceTree = "<group>"; };
 		37489B2F25978FD2006BC827 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		374A62482C38F2DD000CAA9B /* NSLayoutConstraintUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintUtils.swift; sourceTree = "<group>"; };
+		37C10BE22B27F173001EFF14 /* StopAnimatingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAnimatingProtocol.swift; sourceTree = "<group>"; };
 		C99E90931CB95E14001E70CC /* SimpleAlertLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleAlertLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E90961CB95E14001E70CC /* SimpleAlertLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAlertLib.h; sourceTree = "<group>"; };
 		C99E90981CB95E14001E70CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,6 +49,7 @@
 		C99E90891CB95E14001E70CC = {
 			isa = PBXGroup;
 			children = (
+				370C10722B23708F00902D8B /* SimpleAlertDocumentation.docc */,
 				C99E90951CB95E14001E70CC /* SimpleAlertLib */,
 				C99E90941CB95E14001E70CC /* Products */,
 				A8C8084232DC20BF19CD1E8E /* Frameworks */,
@@ -64,6 +71,8 @@
 				C99E90981CB95E14001E70CC /* Info.plist */,
 				C99E90A81CB95E6B001E70CC /* SimpleAlert.swift */,
 				3722B59229ABB89A00CD4111 /* UIView+Util.swift */,
+				37C10BE22B27F173001EFF14 /* StopAnimatingProtocol.swift */,
+				374A62482C38F2DD000CAA9B /* NSLayoutConstraintUtils.swift */,
 			);
 			path = SimpleAlertLib;
 			sourceTree = "<group>";
@@ -154,6 +163,9 @@
 			files = (
 				3722B59329ABB89A00CD4111 /* UIView+Util.swift in Sources */,
 				C99E90A91CB95E6B001E70CC /* SimpleAlert.swift in Sources */,
+				37C10BE32B27F173001EFF14 /* StopAnimatingProtocol.swift in Sources */,
+				370C10732B23708F00902D8B /* SimpleAlertDocumentation.docc in Sources */,
+				374A62492C38F2DD000CAA9B /* NSLayoutConstraintUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,9 +311,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -330,8 +346,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.confusionStudios.SimpleAlertLib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
