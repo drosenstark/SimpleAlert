@@ -1,54 +1,72 @@
 // (c) Confusion Studios LLC and affiliates. Confidential and proprietary.
 
+private let IS_PHONE = (UIDevice.current.userInterfaceIdiom == .phone)
+
 @objc public enum SimpleAlertTheme: Int { case dark, light }
 
+/// SimpleAlert is a simple framework for alerts/dialogs on iOS.
 @objc open class SimpleAlert: UIView, UITextFieldDelegate {
     weak static var lastAlert: SimpleAlert?
 
-    let messageLabel = UILabel()
-    let titleLabel = UILabel()
+    private let messageLabel = UILabel()
+    private let titleLabel = UILabel()
+
+    // this contains the text fields OR the custom view
+    private let middleContainer = UIView()
+    private var textFields: [UITextField] = []
+    private var middleContainerCustomView: UIView?
+
     @objc public let box = UIView()
     @objc public let buttonsBox = UIView()
-    @objc open var buttons: [UIButton] = []
-    let textFieldsBox = UIView()
-    var textFields: [UITextField] = []
-    @objc open var doNotAutomaticallyEnableTheseButtons: [UIButton] = []
+    @objc public var buttons: [UIButton] = []
+    @objc public var doNotAutomaticallyEnableTheseButtons: [UIButton] = []
 
-    @objc open var topIcon = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-    @objc open var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
-    @objc open var boxBackgroundColor: UIColor!
-    @objc open var buttonsBoxBackgroundColor: UIColor!
-    @objc open var titleTextColor: UIColor!
-    @objc open var messageTextColor: UIColor!
-    @objc open var buttonHighlightColor: UIColor!
-    @objc open var buttonsBoxColor: UIColor!
+    @objc public var topIcon = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    @objc public var modalBackgroundColor = UIColor.black.withAlphaComponent(0.4)
+    @objc public var boxBackgroundColor: UIColor!
+    @objc public var buttonsBoxBackgroundColor: UIColor!
+    @objc public var titleTextColor: UIColor!
+    @objc public var messageTextColor: UIColor!
+    @objc public var buttonHighlightColor: UIColor!
+    @objc public var buttonsBoxColor: UIColor!
 
-    @objc open var boxWidth = CGFloat(300.0)
-    @objc open var topMargin = CGFloat(20.0)
-    @objc open var bottomMarginIfNecessary = CGFloat(20.0)
-    @objc open var sideMargin = CGFloat(20.0)
-    @objc open var spaceBetweenSections = CGFloat(10.0)
+    @objc public var messageLabelTextAlignment = NSTextAlignment.center
 
-    @objc open var textFieldTextColor = UIColor.black
-    @objc open var textFieldPlaceholderColor = UIColor.darkGray
-    @objc open var textFieldBackgroundColor = UIColor.white
-    @objc open var textFieldRowHeight = CGFloat(30.0)
-    @objc open var textFieldRowVerticalSpace = CGFloat(1.0)
-    @objc open var textFieldInset = CGFloat(10.0)
+    @objc public var topMargin = CGFloat(20.0)
+    @objc public var bottomMarginIfNecessary = CGFloat(20.0)
+    @objc public var sideMargin = CGFloat(20.0)
+    @objc public var spaceBetweenSections = CGFloat(10.0)
 
-    @objc open var buttonInset = CGFloat(0.0)
-    let titleHeight = CGFloat(30.0)
-    @objc open var buttonRowHeight = CGFloat(40.0)
-    @objc open var buttonRowVerticalSpace = CGFloat(1.0)
+    @objc public var textFieldTextColor = UIColor.black
+    @objc public var textFieldPlaceholderColor = UIColor.darkGray
+    @objc public var textFieldBackgroundColor = UIColor.white
+    @objc public var textFieldRowHeight = CGFloat(30.0)
+    @objc public var textFieldRowVerticalSpace = CGFloat(1.0)
+    @objc public var textFieldInset = CGFloat(10.0)
 
-    @objc open var showAlertInTopHalf: Bool = false
+    @objc public var buttonInset = CGFloat(0.0)
+    @objc public var buttonRowVerticalSpace = CGFloat(1.0)
 
-    var showWasAnimated = false
+    @objc public var showAlertInTopHalf: Bool = false
+
+    private var showWasAnimated = false
 
     // working around a shared dependency on other stuff in my own libs
-    @objc open var doThisToEveryButton: ((UIButton) -> Void)?
+    @objc public var doThisToEveryButton: ((UIButton) -> Void)?
 
-    // MARK: - class methods
+    // MARK: - Sizes
+
+    public var boxWidth: CGFloat = IS_PHONE ? 300 : 350
+    public var titleHeight: CGFloat = 30.0
+    private var titleFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
+    private var messageFontSize: CGFloat = IS_PHONE ? 15 : 16.5
+    private var buttonRowHeight: CGFloat = IS_PHONE ? 37.5 : 45.0
+    private var buttonFontSize: CGFloat = IS_PHONE ? 17.0 : 19.0
+
+    // for keyboard notifications
+    private var boxOuterConstraints = [NSLayoutConstraint]()
+    
+    // MARK: - Class Methods
 
     @objc(makeAlertWithTitle:message:)
     open class func makeAlert(_ title: String?, message: String) -> SimpleAlert {
@@ -71,6 +89,12 @@
         }
     }
 
+    @objc open var attributedTextForMessage: NSAttributedString? {
+        didSet {
+            messageLabel.attributedText = attributedTextForMessage
+        }
+    }
+
     // MARK: - Add Methods
 
     @discardableResult
@@ -85,22 +109,40 @@
 
     @discardableResult
     @objc open func addTextFieldWithPlaceholder(_ placeholder: String, secureEntry: Bool, changeHandler: ((UITextField) -> Void)?) -> UITextField {
-        let retVal = UITextField()
-        retVal.backgroundColor = UIColor.white
-        retVal.placeholder = placeholder
-        retVal.isSecureTextEntry = secureEntry
-        retVal.font = UIFont.systemFont(ofSize: textFieldRowHeight / 3.0 + 2.0)
-        retVal.delegate = self
+        guard middleContainerCustomView == nil else {
+            fatalError("choose text fields or custom view but not both")
+        }
+
+        let textField = UITextField()
+        textField.backgroundColor = UIColor.white
+        textField.placeholder = placeholder
+        textField.isSecureTextEntry = secureEntry
+        textField.font = UIFont.systemFont(ofSize: textFieldRowHeight / 3.0 + 4.0)
+        textField.delegate = self
         if let handler = changeHandler {
-            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: retVal, queue: OperationQueue.main) { notification in
-                handler(retVal)
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { notification in
+                handler(textField)
             }
         }
 
-        textFields.append(retVal)
-        textFieldsBox.addSubview(retVal)
+        textFields.append(textField)
+        middleContainer.addSubview(textField)
 
-        return retVal
+        return textField
+    }
+
+    // alias
+    open func setMiddleContainerCustomView(_ customView: UIView) {
+        setCustomView(customView)
+    }
+
+    open func setCustomView(_ customView: UIView) {
+        guard textFields.count == 0 else {
+            fatalError("choose text fields or custom view but not both")
+        }
+
+        middleContainerCustomView = customView
+        middleContainer.addSubview(customView)
     }
 
     @objc open func showInWindow(_ window: UIWindow, animated: Bool = true) {
@@ -122,7 +164,7 @@
         widthAnchor.constraint(equalTo: window.widthAnchor).activateAndName("simpleAlert.widthOne")
         heightAnchor.constraint(equalTo: window.heightAnchor).activateAndName("simpleAlert.heightOne")
 
-        prepSubviews()
+        prepSubviews(in: window)
 
         if animated {
             alpha = 0.0
@@ -131,12 +173,16 @@
             })
         }
 
-        perform(#selector(enableButtons), with: nil, afterDelay: 0.5)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self else { return }
+            
+            self.enableButtons()
+            self.addKeyboardNotifications()
+        }
         showWasAnimated = animated
     }
 
     @objc open func enableButtons() {
-        addKeyboardNotifications()
         for button in buttons {
             if !doNotAutomaticallyEnableTheseButtons.contains(button) {
                 button.isEnabled = true
@@ -154,16 +200,37 @@
     @objc open func dismiss() {
         removeKeyboardNotifications()
         if !showWasAnimated {
-            DispatchQueue.main.async {
+            let delay = stopSpinnerAnimationMaybe() ? 0.5 : 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 self.removeFromSuperview()
             }
         } else {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.alpha = 0.0
-            }, completion: { _ in
-                self.removeFromSuperview()
-            })
+            dismissAnimated()
         }
+    }
+
+    /// true if there was a spinner to stop
+    private func stopSpinnerAnimationMaybe() -> Bool {
+        if let middleContainer = middleContainerCustomView as? (UIView & StopAnimatingProtocol) {
+            middleContainer.stopAnimating()
+            return true
+        }
+        return false
+    }
+    
+    private func dismissAnimated() {
+        let delay = stopSpinnerAnimationMaybe() ? 0.5 : 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            self?.dismissAnimatedInner()
+        }
+    }
+    
+    private func dismissAnimatedInner() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.alpha = 0.0
+        }, completion: { _ in
+            self.removeFromSuperview()
+        })
     }
 
     // MARK: - UITextFieldDelegate Methods
@@ -177,48 +244,48 @@
 
     // MARK: - Keyboard notifications to get UITextFields out of the way
 
-    func addKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+    private func addKeyboardNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main) { [weak self] notification in
+            self?.keyboardDidShow(notification)
+        }
+        notificationCenter.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { [weak self] notification in
+            self?.keyboardDidHide(notification)
+        }
     }
-
-    func removeKeyboardNotifications() {
+    
+    private func removeKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    var frameBeforePullup: CGRect?
-    var framePulledUp: CGRect?
-    var bottomOfTextNeedsPullUpBy: CGFloat?
-
-    @objc open func keyboardDidShow(_ notification: Notification) {
+    var didMoveForKeyboard = false
+    
+    private func keyboardDidShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
             return
         }
         guard let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else {
             return
         }
-        guard let textField = textFields.last else { return }
-        var textFieldFrame = textField.window!.convert(textField.frame, from: textField.superview)
-        textFieldFrame.size.height += 10
-        if keyboardFrame.intersects(textFieldFrame) {
-            if frameBeforePullup == nil {
-                frameBeforePullup = box.frame
-                bottomOfTextNeedsPullUpBy = textFieldFrame.origin.y + textFieldFrame.size.height - keyboardFrame.origin.y
-            }
-            var frame = box.frame
-            frame.origin.y -= bottomOfTextNeedsPullUpBy!
-            framePulledUp = frame
-            box.frame = frame
-            layoutTopIcon()
+        if keyboardFrame.intersects(box.frame) {
+            boxOuterConstraints.setToIsActive(false)
+            boxOuterConstraints = box.constrainCenterAndTopTo(view: box.superview, marginY: 50)
+            didMoveForKeyboard = true
         }
     }
 
-    @objc open func keyboardDidHide(_ notification: Notification) {
-        guard let frameBeforePullup = frameBeforePullup else { return }
-        box.frame = frameBeforePullup
-        layoutTopIcon()
-        framePulledUp = nil
+    private func keyboardDidHide(_ notification: Notification) {
+        if didMoveForKeyboard {
+            boxOuterConstraints.setToIsActive(false)
+            setupCenteredMiddleOuterBoxConstraints()
+            didMoveForKeyboard = false
+        }
+    }
+
+    private func setupCenteredMiddleOuterBoxConstraints() {
+        let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
+        boxOuterConstraints = box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
     }
 
     // MARK: - Theme
@@ -237,7 +304,7 @@
                 boxBackgroundColor = UIColor.white
                 titleTextColor = UIColor.black
                 buttonHighlightColor = UIColor.lightGray
-                textFieldBackgroundColor = UIColor.black
+                textFieldBackgroundColor = UIColor.darkGray
                 textFieldTextColor = UIColor.white
                 textFieldPlaceholderColor = UIColor.lightGray
             }
@@ -252,8 +319,11 @@
         if let doThis = doThisToEveryButton {
             doThis(button)
         }
+
+        button.adjustFontSize(to: buttonFontSize)
         button.setTitle(text, for: UIControl.State())
         button.setTitleColor(tintColor, for: UIControl.State())
+        button.setTitleColor(.gray, for: .disabled)
 
         button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouch(_:)), for: UIControl.Event.touchDown)
         button.addTarget(self, action: #selector(SimpleAlert.handleButtonTouchUp(_:)), for: UIControl.Event.touchUpOutside)
@@ -269,7 +339,7 @@
     }
 
     // public for being overridden
-    @objc open func prepSubviews() {
+    open func prepSubviews(in window: UIWindow) {
         addSubview(topIcon)
         box.layer.cornerRadius = 10.0
         backgroundColor = modalBackgroundColor
@@ -277,23 +347,28 @@
         box.clipsToBounds = true
         addSubview(box)
 
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: titleFontSize)
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
         titleLabel.textColor = titleTextColor
         box.addSubview(titleLabel)
 
-        messageLabel.font = UIFont.systemFont(ofSize: 13.0)
+        messageLabel.font = UIFont.systemFont(ofSize: messageFontSize)
         messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
+        messageLabel.textAlignment = messageLabelTextAlignment
         messageLabel.textColor = messageTextColor
         box.addSubview(messageLabel)
 
-        box.addSubview(textFieldsBox)
-        textFieldsBox.clipsToBounds = true
+        box.addSubview(middleContainer)
+        middleContainer.clipsToBounds = true
 
         let textFieldRowTotalHeight = textFieldRowHeight + textFieldRowVerticalSpace
-        let textFieldsBoxHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
+        let customMiddleViewGutsHeight: CGFloat
+        if let middleContainerCustomView {
+            customMiddleViewGutsHeight = middleContainerCustomView.frame.size.height
+        } else {
+            customMiddleViewGutsHeight = textFieldRowTotalHeight * CGFloat(textFields.count)
+        }
 
         box.addSubview(buttonsBox)
         buttonsBox.backgroundColor = buttonsBoxColor
@@ -301,6 +376,12 @@
 
         let buttonRowTotalHeight = buttonRowHeight + buttonRowVerticalSpace
         let buttonsBoxHeight = buttonRowTotalHeight * CGFloat(buttons.count)
+
+        if let middleContainerCustomView {
+            middleContainerCustomView.translatesAutoresizingMaskIntoConstraints = false
+            middleContainerCustomView.centerXAnchor.constraint(equalTo: middleContainer.centerXAnchor).isActive = true
+            middleContainerCustomView.widthAnchor.constraint(equalTo: middleContainer.widthAnchor, multiplier: 0.9).isActive = true
+        }
 
         bringSubviewToFront(topIcon)
 
@@ -311,10 +392,9 @@
         box.widthAnchor.constraint(lessThanOrEqualToConstant: boxWidth).activateAndName("simpleAlert.box.width")
         box.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.80).activateAndName("simpleAlert.box.width.vs.enclosing.view", priority: .defaultHigh)
 
-        let multiplerY = showAlertInTopHalf ? 0.5 : 1.0
-        box.constrainCenterTo(view: box.superview, multiplierY: multiplerY)
+        setupCenteredMiddleOuterBoxConstraints()
 
-        [box, titleLabel, messageLabel, buttonsBox, textFieldsBox].forEach {
+        [box, titleLabel, messageLabel, buttonsBox, middleContainer].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
@@ -325,8 +405,8 @@
         messageLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor, multiplier: 1.0).isActive = true
         messageLabel.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0).isActive = true
 
-        textFieldsBox.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
-        textFieldsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
+        middleContainer.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
+        middleContainer.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
 
         buttonsBox.widthAnchor.constraint(equalTo: box.widthAnchor, constant: 0.0).isActive = true
         buttonsBox.centerXAnchor.constraint(equalTo: box.centerXAnchor, constant: 0.0).isActive = true
@@ -334,17 +414,23 @@
         titleLabel.topAnchor.constraint(equalTo: box.topAnchor, constant: topMargin).isActive = true
         messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.messageLabel.topAnchor")
 
-        textFieldsBox.heightAnchor.constraint(equalToConstant: textFieldsBoxHeight).isActive = true
-        textFieldsBox.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.textFieldsBox.topAnchor")
+        middleContainer.heightAnchor.constraint(equalToConstant: customMiddleViewGutsHeight).isActive = true
+        middleContainer.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: spaceBetweenSections).activateAndName("simpleAlert.textFieldsBox.topAnchor")
 
-        let spaceAfterTextFields = textFieldsBoxHeight == 0 ? 0 : spaceBetweenSections * 0.5
+        let spaceAfterTextFields: CGFloat = {
+            if customMiddleViewGutsHeight == 0 {
+                return buttons.count > 0 ? 10 : 0
+            } else {
+                return spaceBetweenSections * 0.5
+            }
+        }()
 
         buttonsBox.heightAnchor.constraint(equalToConstant: buttonsBoxHeight).isActive = true
-        buttonsBox.topAnchor.constraint(equalTo: textFieldsBox.bottomAnchor, constant: spaceAfterTextFields).isActive = true
+        buttonsBox.topAnchor.constraint(equalTo: middleContainer.bottomAnchor, constant: spaceAfterTextFields).isActive = true
 
         let boxHeightWithoutMessage = {
             var result = topMargin + titleHeight + 2 * self.spaceBetweenSections + spaceAfterTextFields
-            result += textFieldsBoxHeight
+            result += customMiddleViewGutsHeight
             result += (buttonsBoxHeight > 0) ? buttonsBoxHeight : self.bottomMarginIfNecessary
             return result
         }()
@@ -368,9 +454,9 @@
 
             let top = CGFloat(CGFloat(index) * textFieldRowTotalHeight)
             textField.heightAnchor.constraint(equalToConstant: textFieldRowHeight).isActive = true
-            textField.widthAnchor.constraint(equalTo: textFieldsBox.widthAnchor, constant: -textFieldInset).isActive = true
-            textField.centerXAnchor.constraint(equalTo: textFieldsBox.centerXAnchor, constant: 0).isActive = true
-            textField.topAnchor.constraint(equalTo: textFieldsBox.topAnchor, constant: top + textFieldRowVerticalSpace).isActive = true
+            textField.widthAnchor.constraint(equalTo: middleContainer.widthAnchor, constant: -textFieldInset).isActive = true
+            textField.centerXAnchor.constraint(equalTo: middleContainer.centerXAnchor, constant: 0).isActive = true
+            textField.topAnchor.constraint(equalTo: middleContainer.topAnchor, constant: top + textFieldRowVerticalSpace).isActive = true
         }
 
         for (index, button) in buttons.enumerated() {
@@ -391,7 +477,7 @@
 
     // MARK: - Each button calls these for highlighting background
 
-    @objc func handleButtonTouch(_ button: UIButton) {
+    @objc private func handleButtonTouch(_ button: UIButton) {
         button.backgroundColor = buttonHighlightColor
     }
 
@@ -418,7 +504,7 @@
 
 // MARK: - Special UIButton Sub
 
-class ButtonSub: UIButton {
+fileprivate class ButtonSub: UIButton {
     var handler: (() -> Void)?
 
     override init(frame: CGRect) {
@@ -443,5 +529,21 @@ class ButtonSub: UIButton {
 
     @objc func callHandler() {
         handler?()
+    }
+}
+
+// MARK: - Util
+
+private extension CGSize {
+    var longestSide: CGFloat {
+        return max(width, height)
+    }
+}
+
+private extension UIButton {
+    func adjustFontSize(to newFontSize: CGFloat) {
+        guard let font = titleLabel?.font else { return }
+
+        titleLabel?.font = UIFont(descriptor: font.fontDescriptor, size: newFontSize)
     }
 }
