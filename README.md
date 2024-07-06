@@ -67,9 +67,6 @@ and make sure to:
 1. Update using `carthage update --platform iOS`
 1. Add the framework to your copy-frameworks, something like `$(SRCROOT)/Carthage/Build/iOS/SimpleAlertLib.framework`
 
-
 ## Dependencies!
 
-Requires Carthage (to get Cartography). Run
-
-`carthage update --platform iOS`
+Now there are none.
